@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::middleware(['basicAuth'])->get('/', function() {
+    return "Autenticiran si, boy!";
+})->name('successfulAuth');
