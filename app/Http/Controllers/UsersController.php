@@ -26,9 +26,10 @@ class UsersController extends Controller
         $user = \App\User::where('email', $request->input('email'))->first();
 
         if ($user != null) {
-            if ($user->password == Hash::make($request->input('password'), ['rounds' => 12]))
-                Session::put('user_id', $user->id);
-                return view('welcome', ['message' => 'Gucci']);
+            if (Hash::check($request->input('password'), $user->password)){
+                $request->session()->put('user_id', $user->id);
+                return view('welcome', ['name'=> $user->email]);
+            }
         }
 
         return view('login', ['message' => 'Invalid username or password']);
@@ -44,6 +45,6 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect('login')->with('message', 'Now login! :)');
+        return redirect('login', ['message' => 'Now login! :)']);
     }
 }

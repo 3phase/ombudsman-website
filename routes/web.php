@@ -25,7 +25,7 @@ Route::get('/register', function () {
 
 Route::get('/login', function(){
     return view('login');
-})->name('login');
+})->name('login', ['message' => '']);
 
 Route::get('/', function () {
     return view('welcome');

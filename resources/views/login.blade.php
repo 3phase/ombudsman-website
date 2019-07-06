@@ -85,6 +85,17 @@
                 </div>
 
                 <br>
+                <br>
+                
+
+                @if(isset($message))
+                    <div>
+                        {{ $message }}
+                    </div>
+                @endif
+
+                <br>
+                <br>
 
                 <form action="/login" method='POST'>
                     @csrf
