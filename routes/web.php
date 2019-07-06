@@ -11,10 +11,22 @@
 |
 */
 
-Route::middleware(['basicAuth'])->get('/', function() {
-    return "Autenticiran si, boy!";
-})->name('successfulAuth');
+// Route::middleware(['basicAuth'])->get('/', function() {
+//     return "Autenticiran si, boy!";
+// })->name('successfulAuth');
+
+Route::post('/register', 'UsersController@register');
+
+Route::post('/login', 'UsersController@login');
+
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
+
+Route::get('/login', function(){
+    return view('login');
+})->name('login');
 
 Route::get('/', function () {
-    return 'Nah..';
-})->name('azkaban');
+    return view('welcome');
+})->name('index');

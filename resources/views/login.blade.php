@@ -80,26 +80,23 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class='title'>
+                    Login
                 </div>
 
+                <br>
 
-                @if (Session('user_id'))
-                    <div class="alert alert-success">
-                        Hello, {{ User::find(session('user_id'))->email }}
-                    </div>
-                @endif
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                <form action="/login" method='POST'>
+                    @csrf
+                    Username(email): <input type="text" name='email'>
+                    <br>
+                    <br>
+                    Password: <input type="password" name='password'>
+                    <br>
+                    <br>
+                    <input type="submit" value='Submit'>
+                </form>
+                
 
                 <passport-clients></passport-clients>
                 <passport-authorized-clients></passport-authorized-clients>
