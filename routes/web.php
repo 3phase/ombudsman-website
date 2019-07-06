@@ -14,3 +14,7 @@
 Route::middleware(['basicAuth'])->get('/', function() {
     return "Autenticiran si, boy!";
 })->name('successfulAuth');
+
+Route::get('/', function () {
+    return 'Nah..';
+})->name('azkaban');
