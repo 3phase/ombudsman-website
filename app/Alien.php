@@ -14,4 +14,4 @@ class Alien extends Model
         return $this->belongsToMany('App\\Node', 'aliens_missions');
     }
 
-}
+}   

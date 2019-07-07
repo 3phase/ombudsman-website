@@ -88,11 +88,9 @@
                 <br>
                 
 
-                @if(isset($message))
-                    <div>
-                        {{ $message }}
-                    </div>
-                @endif
+                <div>
+                    {{ session()->get( 'message' ) }}
+                </div>
 
                 <br>
                 <br>

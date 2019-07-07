@@ -78,10 +78,12 @@
                     @endauth
                 </div>
             @endif
+            
+           
 
             <div class="content">
                 <div class='info'>
-                    { { session('message') } }
+                    {{ session('message') }}
                 </div>
 
                 <div class='title'>
@@ -89,7 +91,15 @@
                 </div>
 
                 <br>
-
+                 @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form action="/register" method='POST'>
                     @csrf
                     Username(email): <input type="text" name='email'>

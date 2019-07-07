@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
@@ -37,7 +38,12 @@ class UsersController extends Controller
 
     public function register(Request $request){
         $user = new \App\User;
-
+        $isValid = $request->validate([
+            'email' => 'required|unique:users|min:3',
+            'name' => 'nullable|min:3',
+            'password' => 'required|min:3'
+        ]);
+        
         $user->name = '';
 
         $user->email = $request->input('email');
@@ -45,6 +51,6 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect('login', ['message' => 'Now login! :)']);
+        return redirect()->route('login')->with(['message' => 'Register successful! :)']);
     }
 }
