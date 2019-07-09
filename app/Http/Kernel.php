@@ -43,7 +43,7 @@ class Kernel extends HttpKernel
         ],
 
         'client_credentials' => [
-            \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+            // \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
             'throttle:60,1',
             'bindings',
         ],
@@ -66,7 +66,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'basicAuth' => \App\Http\Middleware\BasicAuth::class
+        'basicAuth' => \App\Http\Middleware\BasicAuth::class,
+        'json.response' => \App\Http\Middleware\ForceJsonResponse::class
     ];
 
     /**
