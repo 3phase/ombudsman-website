@@ -11,12 +11,14 @@ class AuthController extends Controller
         if ($user == null) {
             return response([
                 'message' => 'Unauthenticated'
-            ], 200);
+            ], 401);
         }
         
-        $token = $user->createToken('utoken')->accessToken;
-        return response([
-            'token' => $token
-        ], 200);
+        // $token = $user->createToken('utoken')->accessToken;
+        // return response([
+        //     'token' => $token
+        // ], 200);
+        // session(['user' => '']);
+        
     }
 }
