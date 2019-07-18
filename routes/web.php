@@ -17,7 +17,7 @@
 
 Route::post('/register', 'UsersController@register');
 
-Route::post('/login', 'UsersController@login');
+Route::post('/login', 'UsersController@login')->middleware('client_credentials');
 
 Route::get('/register', function () {
     return view('register');

@@ -29,6 +29,11 @@ class UsersController extends Controller
         if ($user != null) {
             if (Hash::check($request->input('password'), $user->password)){
                 $request->session()->put('user_id', $user->id);
+
+                $request->session()->save();
+
+                \Cookie::queue(\Cookie::make('session_id', $request->session()->getId()));
+
                 return view('welcome', ['name'=> $user->email]);
             }
         }
