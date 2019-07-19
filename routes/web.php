@@ -30,3 +30,30 @@ Route::get('/login', function(){
 Route::get('/', function () {
     return view('welcome');
 })->name('index');
+
+Route::get('getUser', function(){
+    return response()->json(["user" => \App\User::find(\Session::get('user_id'))]);
+});
+
+Route::get('aliens/{id}', function($id){
+    return response()->json(['alien' => \App\Alien::find($id)]);
+});
+
+Route::get('planet/{id}', function($id){
+    return response()->json(['planet' => \App\Planet::find($id)]);
+});
+
+Route::get('planet/{planet_id}/alien/{alien_id}/mission/{node_id}', function($planet_id, $alien_id, $node_id){
+    $mission = \App\Alien::find($alien_id)->missions()->where(['node_id' => $node_id])->first();
+
+    function mapCriteria($object){
+        return $object->id;
+    }
+    
+    return response()->json([
+        'planet' => \App\Planet::find($planet_id),
+        'alien' => \App\Alien::find($alien_id),
+        'starting_node_id' => $mission,
+        'options' => array_map("mapCriteria", \App\Node::find($mission)->nodes()->get())
+    ]);
+});
