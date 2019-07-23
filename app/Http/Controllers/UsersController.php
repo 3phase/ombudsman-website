@@ -32,12 +32,14 @@ class UsersController extends Controller
 
 
             if (Hash::check($request->input('password'), $user->password)){                
-                $session = new \App\Session;
-                $session->save();
-                Log::info("Created id is: ".$session->id);
-                session(["sessionId" => $session->id]);
+                $session = new \Session;
+                // $session->save();
+                // Log::info("Created id is: ".$session->getId());
+                // session(["sessionId" => $session->getId()]);
                 
                 Log::info("Session id is: ".session("sessionId"));
+
+                Cookie::put('session_id', $request->session->getId());
 
                 return view('welcome', ['name'=> $user->email]);
             }
