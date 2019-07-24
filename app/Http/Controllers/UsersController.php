@@ -25,19 +25,25 @@ class UsersController extends Controller
      */
     public function login(Request $request){
         $user = \App\User::where('email', $request->input('email'))->first();
+        $id = $request->session()->get('id', 'No such key my friend!');
+        Log::info("Found id is: ".$id);
 
         if ($user != null) {
-            if (Hash::check($request->input('password'), $user->password)){
-                $request->session()->put('user_id', $user->id);
 
-                $request->session()->save();
 
-                \Cookie::queue(\Cookie::make('session_id', $request->session()->getId()));
+            if (Hash::check($request->input('password'), $user->password)){                
+                $session = new \Session;
+                // $session->save();
+                // Log::info("Created id is: ".$session->getId());
+                // session(["sessionId" => $session->getId()]);
+                
+                Log::info("Session id is: ".session("sessionId"));
+
+                Cookie::put('session_id', $request->session->getId());
 
                 return view('welcome', ['name'=> $user->email]);
             }
         }
-
         return view('login', ['message' => 'Invalid username or password']);
     }
 
@@ -48,9 +54,8 @@ class UsersController extends Controller
             'name' => 'nullable|min:3',
             'password' => 'required|min:3'
         ]);
-        
-        $user->name = '';
 
+        $user->name = $request->input('email');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'), ['rounds' => 12]);
 
