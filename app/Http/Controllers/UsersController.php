@@ -39,8 +39,8 @@ class UsersController extends Controller
                 
                 Log::info("Session id is: ".session("sessionId"));
 
-                \Cookie::put('session_id', $request->session()->getId());
-                \Cookie::put('user_email', $user->email);
+                \Cookie::make('session_id', $request->session()->getId());
+                \Cookie::make('user_email', $user->email);
 
                 return view('welcome', ['name'=> $user->email]);
             }
