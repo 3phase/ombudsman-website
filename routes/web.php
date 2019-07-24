@@ -32,7 +32,7 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('getUser', function(){
-    return response()->json(["user" => \App\User::find(\Session::get('user_id'))]);
+    return response()->json(["user" => \Cookie::get('user_email')]);
 })->middleware('auth:api');
 
 Route::get('alien/{id}', function($id){
