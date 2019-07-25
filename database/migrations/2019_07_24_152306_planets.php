@@ -14,7 +14,7 @@ class Planets extends Migration
     public function up()
     {
         Schema::create('planets', function (Blueprint $table) {
-            $table->string('id')->unique();
+            $table->increments('id');
             $table->string('name', 45);
             $table->integer('level');
             $table->integer('reachable_population');

@@ -11,8 +11,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
-    public function planet(){
-        return $this->belongsTo('App\\Planet', 'planet_id');
+    public function progress(){
+        return $this->hasMany('App\\Progress');
     }
 
     /**
