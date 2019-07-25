@@ -30,3 +30,35 @@ Route::get('/login', function(){
 Route::get('/', function () {
     return view('welcome');
 })->name('index');
+
+Route::get('getUser', function(){
+    return response()->json(["user" => \Cookie::get('user_email')]);
+})->middleware('auth:api');
+
+Route::get('alien/{id}', function($id){
+    return response()->json(['alien' => \App\Alien::find($id)]);
+})->middleware('auth:api');
+
+Route::get('planet/{id}', function($id){
+    return response()->json(['planet' => \App\Planet::find($id)]);
+})->middleware('auth:api');
+
+Route::get('planet/{planet_id}/alien/{alien_id}/mission/{mission_id}', function($planet_id, $alien_id, $mission_id){
+    $mission = \App\Alien::find($alien_id)->missions()->skip($mission_id - 1)->first();
+    
+    return response()->json([
+        'planet' => \App\Planet::find($planet_id),
+        'alien' => \App\Alien::find($alien_id),
+        'starting_node_id' => $mission->pivot->node_id,
+        // 'options' => \App\Node::find($mission)->first()->nodes()->get()
+    ]);
+})->middleware('auth:api');
+
+Route::get('mission_node/{node_id}', function($node_id){
+    $mission_node = \App\Node::find($node_id);
+
+    return response()->json([
+        'current_node' => $mission_node,
+        'options' => $mission_node->nodes()->get()
+    ]);
+})->middleware('auth:api');
