@@ -8,7 +8,7 @@ Route::middleware('web', 'json.response')->group(function() {
         echo(Cookie::get('session_id'));
         return response()->json(["user" => \App\User::find(\Session::get('user_id'))]);
     });
-    Route::get('getUser', function(){
+    Route::get('get-user', function(){
         return response()->json([\Cookie::get('user_email')]);
     })->middleware('auth:api');
     
