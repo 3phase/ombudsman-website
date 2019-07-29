@@ -13,7 +13,14 @@ class AliensTableSeeder extends Seeder
     {
         DB::table('aliens')->insert([
             'name' => 'e',
-            
+        ]);
+
+        DB::table('aliens')->insert([
+            'name' => 'Saiya',
+        ]);
+
+        DB::table('aliens')->insert([
+            'name' => 'Innard',
         ]);
     }
 }
