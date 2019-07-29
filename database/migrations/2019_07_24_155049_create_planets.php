@@ -13,8 +13,6 @@ class CreatePlanets extends Migration
      */
     public function up()
     {
-        Schema::drop('planets');
-
         Schema::create('planets', function (Blueprint $table) {
             $table->bigIncrements('id')->unique();
             $table->string('name');
