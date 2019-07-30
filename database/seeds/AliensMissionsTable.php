@@ -19,7 +19,7 @@ class AliensMissionsTable extends Seeder
 
         Db::table('aliens_missions')->insert([
             'alien_id' => 11,
-            'node_id' => 51,
+            'node_id' => 41,
             'reachable_popularity' => 1
         ]);
     }

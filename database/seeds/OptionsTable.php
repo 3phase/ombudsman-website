@@ -82,6 +82,16 @@ class OptionsTable extends Seeder
         ]);
 
         DB::table('options')->insert([
+            'start_id' => 61,
+            'next_id' => 101,
+            'popularity' => 10,
+            'trust' => -3,
+            'energy' => -3,
+            'days' => 1,
+            'unlocking_trust' => 0
+        ]);
+
+        DB::table('options')->insert([
             'start_id' => 81,
             'next_id' => 91,
             'popularity' => 0,
@@ -132,6 +142,16 @@ class OptionsTable extends Seeder
         ]);
 
         DB::table('options')->insert([
+            'start_id' => 131,
+            'next_id' => 161,
+            'popularity' => 10,
+            'trust' => -3,
+            'energy' => -3,
+            'days' => 1,
+            'unlocking_trust' => 0
+        ]);
+
+        DB::table('options')->insert([
             'start_id' => 141,
             'next_id' => 151,
             'popularity' => 10,
@@ -152,7 +172,7 @@ class OptionsTable extends Seeder
         ]);
 
         DB::table('options')->insert([
-            'start_id' => 121,
+            'start_id' => 61,
             'next_id' => 171,
             'popularity' => -2,
             'trust' => -3,

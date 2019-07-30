@@ -54,6 +54,7 @@ class NodesTable extends Seeder
         ]);
 
         DB::table('nodes')->insert([
+            //101
             'dialog_file_path' => 'Ти: Искам още малко да проучиш къде всъщност се произвеждат тези вещества.',
         ]);
 
@@ -68,6 +69,7 @@ class NodesTable extends Seeder
         //Дни по-късно
         
         DB::table('nodes')->insert([
+            //131
             'dialog_file_path' => 'Фабриката се намира в квартал Св. Brbrbr',
         ]);
 
