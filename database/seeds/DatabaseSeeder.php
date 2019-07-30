@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OptionsTable::class);
         $this->call(AliensTableSeeder::class);
         $this->call(PlanetsTableSeeder::class);
-        $this->call(AliensMission::class)
+        $this->call(AliensMission::class);
     }
 }
