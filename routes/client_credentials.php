@@ -20,7 +20,7 @@ Route::middleware('web', 'json.response')->group(function() {
         return response()->json(['name' => \App\Planet::find($id)->name, 'level' => \App\Planet::find($id)->level, 'reachable_population' => \App\Planet::find($id)->reachable_population]);
     })->middleware('auth:api');
     
-    Route::get('/alien/{alien_id}/mission/{mission_id}', function($planet_id, $alien_id, $mission_id){
+    Route::get('/alien/{alien_id}/mission/{mission_id}', function($alien_id, $mission_id){
         $mission = \App\Alien::find($alien_id)->missions()->skip($mission_id - 1)->first();
         
         return response()->json([
