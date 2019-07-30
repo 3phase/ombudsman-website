@@ -130,5 +130,45 @@ class OptionsTable extends Seeder
             'days' => 4,
             'unlocking_trust' => 0
         ]);
+
+        DB::table('options')->insert([
+            'start_id' => 15,
+            'next_id' => 16,
+            'popularity' => 10,
+            'trust' => -5,
+            'energy' => 3,
+            'days' => 1,
+            'unlocking_trust' => 0
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 13,
+            'next_id' => 17,
+            'popularity' => 3,
+            'trust' => 3,
+            'energy' => 2,
+            'days' => 3,
+            'unlocking_trust' => 0
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 13,
+            'next_id' => 18,
+            'popularity' => -2,
+            'trust' => -3,
+            'energy' => 0,
+            'days' => 3,
+            'unlocking_trust' => 0
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 18,
+            'next_id' => 19,
+            'popularity' => 0,
+            'trust' => -1,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => 0
+        ]);
     }
 }

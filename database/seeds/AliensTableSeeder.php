@@ -13,14 +13,17 @@ class AliensTableSeeder extends Seeder
     {
         DB::table('aliens')->insert([
             'name' => 'e',
+            'picture_path' => 'is there a meaning or purpose in this life?'
         ]);
 
         DB::table('aliens')->insert([
             'name' => 'Saiya',
+            'picture_path' => 'is there a meaning or purpose in this life?'
         ]);
 
         DB::table('aliens')->insert([
             'name' => 'Innard',
+            'picture_path' => 'is there a meaning or purpose in this life?'
         ]);
     }
 }
