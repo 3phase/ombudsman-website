@@ -16,6 +16,7 @@ class CreateAliensTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('picture_path');
+            $table->integer('planet_id');
             $table->timestamps();
         });
     }
