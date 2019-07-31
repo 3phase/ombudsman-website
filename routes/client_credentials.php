@@ -30,7 +30,7 @@ Route::middleware('web', 'json.response')->group(function() {
         ]);
     })->middleware('auth:api');
     
-    Route::get('mission_node/{node_id}', function($node_id){
+    Route::get('mission-node/{node_id}', function($node_id){
         $mission_node = \App\Node::find($node_id);
     
         return response()->json([
