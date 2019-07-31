@@ -15,6 +15,9 @@ class User extends Authenticatable
         return $this->hasMany('App\\Progress');
     }
 
+    public function player(){
+        return $this->hasOne('App\\Player');
+    }
     /**
      * The attributes that are mass assignable.
      *
