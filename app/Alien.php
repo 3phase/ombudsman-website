@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alien extends Model
 {
-    public function planets(){
-        return $this->belongsToMany('App\\Planet', 'aliens_planets');
+    public function planet(){
+        return $this->belongsTo('App\\Planet', 'planet_id');
     }
 
     public function missions(){

@@ -19,6 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('trust');
+            $table->integer('popularity');
+            $table->integer('jokers');
+            $table->integer('jokers_level');
+            $table->integer('days');
+            $table->integer('points');
+            $table->integer('planet_id');
             $table->rememberToken();
             $table->timestamps();
         });
