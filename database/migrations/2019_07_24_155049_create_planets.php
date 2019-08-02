@@ -13,13 +13,11 @@ class CreatePlanets extends Migration
      */
     public function up()
     {
-        Schema::drop('planets');
-
         Schema::create('planets', function (Blueprint $table) {
-            $table->bigIncrements('id')->unique();
-            $table->string('name');
+            $table->increments('id');
+            $table->string('name', 45);
             $table->integer('level');
-            $table->integer('reachable_population');
+            $table->integer('unlocking_population');
             $table->timestamps();
         });
     }

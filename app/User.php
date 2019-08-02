@@ -11,6 +11,13 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
+    public function progress(){
+        return $this->hasMany('App\\Progress');
+    }
+
+    public function player(){
+        return $this->hasOne('App\\Player');
+    }
     /**
      * The attributes that are mass assignable.
      *
