@@ -9,7 +9,7 @@ class Progress extends Model
     protected $table = 'progress';
 
     public function user(){
-        return $this->belongsTo('App\\User', 'user_id');
+        return $this->belongsTo('App\\Player', 'player_id');
     }
 
     public function planet(){
