@@ -30,3 +30,13 @@ Route::get('/login', function(){
 Route::get('/', function () {
     return view('welcome');
 })->name('index');
+
+
+// Route::get('player', function(){
+//     return response()->json(App\Player::find();
+// })->name('auth:api');
+
+Route::get('get-user', function(){
+    return response()->json(\Cookie::get('session_id'));
+})->name('auth:api');
+    

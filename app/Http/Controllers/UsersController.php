@@ -30,18 +30,19 @@ class UsersController extends Controller
 
         if ($user != null) {
 
-
             if (Hash::check($request->input('password'), $user->password)){                
-                $session = new \Session;
-                // $session->save();
-                // Log::info("Created id is: ".$session->getId());
-                // session(["sessionId" => $session->getId()]);
-                
-                Log::info("Session id is: ".session("sessionId"));
+                // $session = new \Session;
+                // // $session->save();
+                // // Log::info("Created id is: ".$session->getId());
+                // // session(["sessionId" => $session->getId()]);  
+                Log::info("Session id is: ".$request->session()->getId());
+                Log::info("Session id is: ".$user->id);
 
-                \Cookie::make('session_id', $request->session()->getId());
-                \Cookie::make('user_email', $user->email);
-
+                \Cookie::queue(cookie('session_id', $request->session()->getId()));
+                \Cookie::queue(cookie('user_id', $user->id));
+                // $response = new \Illuminate\Http\Response(view('welcome', ['name' => $user->email]));
+                // $response->withCookie(('cookieName' , 'cookieValue' , expire));
+                // return $response;
                 return view('welcome', ['name'=> $user->email]);
             }
         }
