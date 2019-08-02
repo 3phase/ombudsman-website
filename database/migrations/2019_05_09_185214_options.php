@@ -19,7 +19,7 @@ class Options extends Migration
             $table->bigInteger('trust');
             $table->bigInteger('energy');
             $table->bigInteger('days');
-            $table->bigInteger('unlocking_trust'); 
+            $table->bigInteger('reachable_trust'); 
         });
     }
 

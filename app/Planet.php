@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Planet extends Model
 {
     public function aliens(){
-        return $this->belongsToMany('App\\Alien', 'aliens_planets');
+        return $this->hasMany('App\\Alien');
+    }
+    
+    public function progress(){
+        return $this->hasMany('App\\Progress');
     }
 }
