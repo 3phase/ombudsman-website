@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AliensPlanets extends Migration
+class CreateUsersMissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +13,9 @@ class AliensPlanets extends Migration
      */
     public function up()
     {
-        Schema::create('aliens_planets', function (Blueprint $table) {
-            $table->bigInteger('planet_id');
-            $table->bigInteger('alien_id');
+        Schema::create('users_missions', function (Blueprint $table) {
+            $table->integer('progress_id');
+            $table->integer('node_id');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class AliensPlanets extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('users_missions');
     }
 }
