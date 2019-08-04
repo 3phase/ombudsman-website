@@ -48,7 +48,11 @@ Route::middleware('web', 'json.response')->group(function() {
         $options = [];
 
         foreach ($children as $child) {
-            $composite_object = ['edge' => \App\Option::where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first(), 'child' => $child];
+            $composite_object = [
+                'gains' => \App\Option::where(['next_id' => $child->id], ['start_id' => $mission_node->id])
+                    ->pluck('popularity', 'trust', 'energy', 'days', 'unlocking_trust'),
+                'child' => $child
+            ];
             array_push($options, $composite_object);
         }
 
