@@ -43,9 +43,18 @@ Route::middleware('web', 'json.response')->group(function() {
     Route::get('mission_node/{node_id}', function($node_id){
         $mission_node = \App\Node::find($node_id);
     
+        $children = $mission_node->nodes()->get();
+
+        $options = [];
+
+        foreach ($children as $child) {
+            $composite_object = ['edge' => \App\Option::where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first(), 'child' => $child];
+            array_push($options, $composite_object);
+        }
+
         return response()->json([
             $mission_node,
-            'options' => $mission_node->nodes()->get()
+            'options' => $options
         ]);
     })->middleware('auth:api');
 });
