@@ -29,18 +29,17 @@ class UsersController extends Controller
         Log::info("Found id is: ".$id);
 
         if ($user != null) {
-
-
             if (Hash::check($request->input('password'), $user->password)){                
-                $session = new \Session;
+                // $session = new \Session();
                 // $session->save();
-                // Log::info("Created id is: ".$session->getId());
+                // \Log::info("Created id is: ".$session->getId());
                 // session(["sessionId" => $session->getId()]);
                 
                 Log::info("Session id is: ".session("sessionId"));
 
-                \Cookie::make('session_id', $request->session()->getId());
-                \Cookie::make('user_email', $user->email);
+                \Cookie::queue('session_id', $request->session()->getId());
+                \Cookie::queue('user_email', $user->email);
+                // \Log::info("Created id is: ".\Cookie->get('user_email'));
 
                 return view('welcome', ['name'=> $user->email]);
             }

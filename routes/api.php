@@ -15,12 +15,24 @@ use Illuminate\Http\Request;
 
 Route::middleware('web', 'json.response')->group(function() {
     Route::post('login', 'AuthController@login')->name('auth');
-    Route::get('getUser', function(){
-        echo(Cookie::get('session_id'));
-        return response()->json(["user" => \App\User::find(\Session::get('user_id'))]);
-    });
     Route::get('get-user', function(){
-        return response()->json([\Cookie::get('user_email')]);
+        $user = \App\User::select('id', 'name', 'email')->where('email', \Cookie::get('user_email'))->first();
+
+        $gains = $user->progress()->get();
+
+        $progress = [];
+
+        foreach($gains as $gain){
+            $node_id = DB::table('users_missions')->select('node_id')->where('progress_id', $gain->id)->first()->node_id;
+
+            array_push($progress, ['node' => \App\Node::select('id', 'dialog_file_path')->where('id', $node_id)->first()]);
+        }
+        
+        return response()->json([
+            'user' => $user,
+            'current_gains' => $gains,
+            'progress' => $progress
+        ]);
     })->middleware('auth:api');
     
     Route::get('alien/{id}', function($id){
