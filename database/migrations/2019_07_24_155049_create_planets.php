@@ -17,7 +17,7 @@ class CreatePlanets extends Migration
             $table->increments('id');
             $table->string('name', 45);
             $table->integer('level');
-            $table->integer('reachable_population');
+            $table->integer('unlocking_popularity');
             $table->timestamps();
         });
     }

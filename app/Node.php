@@ -10,7 +10,7 @@ class Node extends Model
         return $this->belongsToMany('App\\Alien', 'aliens_missions');
     }
 
-    public function nodes(){
+    public function options(){
         return $this->belongsToMany('App\\Node', 'options', 'start_id', 'next_id');
     }
     

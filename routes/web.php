@@ -15,9 +15,11 @@
 //     return "Autenticiran si, boy!";
 // })->name('successfulAuth');
 
+Route::get('/', 'HomeController@index')->name('index');
+
 Route::post('/register', 'UsersController@register');
 
-Route::post('/login', 'UsersController@login')->middleware('client_credentials');
+Route::post('/login', 'UsersController@login');/* ->middleware('client_credentials'); */
 
 Route::get('/register', function () {
     return view('register');
@@ -27,6 +29,4 @@ Route::get('/login', function(){
     return view('login');
 })->name('login', ['message' => '']);
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/logout', 'UsersController@logout')->name('logout')->middleware('auth:api');

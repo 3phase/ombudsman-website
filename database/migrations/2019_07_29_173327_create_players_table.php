@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AliensMissions extends Migration
+class CreatePlayersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +13,10 @@ class AliensMissions extends Migration
      */
     public function up()
     {
-        Schema::create('aliens_missions', function (Blueprint $table) {
-            $table->bigInteger('alien_id');
-            $table->bigInteger('node_id');
-            $table->bigInteger('unlocking_popularity');
+        Schema::create('players', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nickname');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class AliensMissions extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('players');
     }
 }
