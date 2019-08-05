@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ResponseController as ResponseController;
 
 class Authenticate 
 {
@@ -17,18 +18,10 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if($request->cookie('session_id')){
-            return $next($request);
-        }else{
-            if($request->wantsJson()){
-                return [
-                    'statusCode' => 403,
-                    'message' => 'Not authenticated!'
-                ];
-            }
-            Log::info('Not authenticated!');
-            
-            return redirect()->route('login')->with('message', 'Not authenticated');
+        if(!$request->cookie('session_id')){
+            Log::info($request->path().' requested from an unauthenticated user!');
+            return ResponseController::respond($request, 401, 'Not authenticated!', 'login');
         }
+        return $next($request);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ResponseController as ResponseController;
 
 class UsersController extends Controller
 {
@@ -25,44 +26,47 @@ class UsersController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function login(Request $request){
-        // $user = \App\User::where('email', $request->input('email'))->first();
-        // $id = $request->session()->get('id', 'No such key my friend!');
-        // Log::info("Found id is: ".$id);
-
-        // if ($user != null) {
-
-        //     if (Hash::check($request->input('password'), $user->password)){                
-        //         // $session = new \Session;
-        //         // // $session->save();
-        //         // // Log::info("Created id is: ".$session->getId());
-        //         // // session(["sessionId" => $session->getId()]);  
-        //         Log::info("Session id is: ".$request->session()->getId());
-        //         Log::info("Session id is: ".$user->id);
-
-        //         \Cookie::queue(cookie('session_id', $request->session()->getId()));
-        //         \Cookie::queue(cookie('user_id', $user->id));
-        //         // $response = new \Illuminate\Http\Response(view('welcome', ['name' => $user->email]));
-        //         // $response->withCookie(('cookieName' , 'cookieValue' , expire));
-        //         // return $response;
-        //         return view('welcome', ['name'=> $user->email]);
-        //     }
-        // }
         $params = $request->only('email', 'password');
         if(Auth::attempt($params)){
             Log::info('User with email '.$request->email.' is now authenticated!');
             \Cookie::queue(cookie('session_id', $request->session()->getId()));
             \Cookie::queue(cookie('user_id', Auth::user()->id));
-            Log::info(\Request::getRequestUri());
-            return redirect()->intended('/')->with(['message' => 'Welcome '.$request->email.'!']);
+            // Log::info(\Request::getRequestUri());
+
+            return ResponseController::respond($request, 200, 'Welcome '.$request->email.'!', 'index');
+
+            // if($request->wantsJson()){
+            //     return [
+            //         'statusCode' => 200,
+            //         'message' => 'Welcome '.$request->email.'!'
+            //     ];   
+            // }
+            // return redirect()->intended('/')->with(['message' => 'Welcome '.$request->email.'!']);
         }
-        return redirect()->route('login')->with(['message' => 'Invalid username or password']);
+
+        return ResponseController::respond($request, 400, 'Invalid username or password!', 'login');
+        // if($request->wantsJson()){
+        //     return [    
+        //         'statusCode' => 400,
+        //         'Invalid username or password!'
+        //     ];
+        // }
+        // return redirect()->route('login')->with(['message' => 'Invalid username or password!']);
     }
 
     public function logout(Request $request){
         Auth::logout();
         \Cookie::queue(\Cookie::forget('user_id'));
         \Cookie::queue(\Cookie::forget('session_id'));
-        return redirect()->route('index')->with(['message' => 'Singed out successfully!']);
+        return ResponseController::respond($request, 200, 'Signed out successfully!', 'index');
+        // if($request->wantsJson()){
+        //     return [
+        //         'statusCode' => 200,
+        //         'message' => 'Successfully signed out!'
+        //     ];
+        // }
+        // return redirect()->route('index')->with(['message' => 'Singed out successfully!']);
+        // return ;
     }
 
     public function register(Request $request){
@@ -79,6 +83,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect()->route('login')->with(['message' => 'Register successful! :)']);
+        return ResponseController::respond($request, 200, 'Register successfull! :)', 'login');
+        // return redirect()->route('login')->with(['message' => 'Register successful! :)']);
     }
 }
