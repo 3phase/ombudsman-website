@@ -38,10 +38,9 @@ Route::middleware('web', 'json.response')->group(function() {
         return response()->json(\App\Planet::find($id)->first());
     })->middleware('auth:api');
     
-    Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($planet_id, $alien_id, $mission_id){
+    Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $mission_id){
         $mission = \App\Alien::find($alien_id)->missions()->skip($alien_mission_num - 1)->first();
         return response()->json([
-            'planet' => \App\Planet::find($planet_id)->name,
             'alien' => \App\Alien::find($alien_id)->name,
             'starting_node_id' => $mission->pivot->node_id,
         ]);
