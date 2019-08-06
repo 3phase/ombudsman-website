@@ -15,26 +15,33 @@ use Illuminate\Http\Request;
 
 Route::middleware('web', 'json.response')->group(function() {
     Route::post('login', 'AuthController@login')->name('auth');
-    Route::get('getUser', function(){
-        echo(Cookie::get('session_id'));
-        return response()->json(["user" => \App\User::find(\Session::get('user_id'))]);
-    });
-    Route::get('get-user', function(){
-        return response()->json([\Cookie::get('user_email')]);
+
+    Route::get('user', function(){
+        return response()->json(\App\User::find(\Cookie::get('user_id')));
+    })->middleware('auth');
+        
+    Route::get('player', function(){
+        $user = \App\User::find(\Cookie::get('user_id'));
+        return response()->json($user->player()->first());
     })->middleware('auth:api');
-    
+
+    Route::get('progress', function(){
+        $user = \App\User::find(\Cookie::get('user_id'));
+        return response()->json($user->player()->first()->progress()->first());
+    })->middleware('auth:api');
+
     Route::get('alien/{id}', function($id){
-        return response()->json(['name' => \App\Alien::find($id)->name]);
+        return response()->json(\App\Alien::find($id)->first());
     })->middleware('auth:api');
     
     Route::get('planet/{id}', function($id){
-        return response()->json(['name' => \App\Planet::find($id)->name, 'level' => \App\Planet::find($id)->level, 'reachable_population' => \App\Planet::find($id)->reachable_population]);
+        return response()->json(\App\Planet::find($id)->first());
     })->middleware('auth:api');
     
-    Route::get('/alien/{alien_id}/mission/{mission_id}', function($alien_id, $mission_id){
-        $mission = \App\Alien::find($alien_id)->missions()->skip($mission_id - 1)->first();
-        
+    Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($planet_id, $alien_id, $mission_id){
+        $mission = \App\Alien::find($alien_id)->missions()->skip($alien_mission_num - 1)->first();
         return response()->json([
+            'planet' => \App\Planet::find($planet_id)->name,
             'alien' => \App\Alien::find($alien_id)->name,
             'starting_node_id' => $mission->pivot->node_id,
         ]);
@@ -42,7 +49,6 @@ Route::middleware('web', 'json.response')->group(function() {
     
     Route::get('mission_node/{node_id}', function($node_id){
         $mission_node = \App\Node::find($node_id);
-    
         return response()->json([
             $mission_node,
             'options' => $mission_node->nodes()->get()
