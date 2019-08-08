@@ -31,42 +31,18 @@ class UsersController extends Controller
             Log::info('User with email '.$request->email.' is now authenticated!');
             \Cookie::queue(cookie('session_id', $request->session()->getId()));
             \Cookie::queue(cookie('user_id', Auth::user()->id));
-            // Log::info(\Request::getRequestUri());
 
             return ResponseController::respond($request, 200, 'Welcome '.$request->email.'!', 'index');
-
-            // if($request->wantsJson()){
-            //     return [
-            //         'statusCode' => 200,
-            //         'message' => 'Welcome '.$request->email.'!'
-            //     ];   
-            // }
-            // return redirect()->intended('/')->with(['message' => 'Welcome '.$request->email.'!']);
         }
 
-        return ResponseController::respond($request, 400, 'Invalid username or password!', 'login');
-        // if($request->wantsJson()){
-        //     return [    
-        //         'statusCode' => 400,
-        //         'Invalid username or password!'
-        //     ];
-        // }
-        // return redirect()->route('login')->with(['message' => 'Invalid username or password!']);
+        return redirect()->route('login')->with(['message' => 'Invalid username or password!']);
     }
 
     public function logout(Request $request){
         Auth::logout();
         \Cookie::queue(\Cookie::forget('user_id'));
         \Cookie::queue(\Cookie::forget('session_id'));
-        return ResponseController::respond($request, 200, 'Signed out successfully!', 'index');
-        // if($request->wantsJson()){
-        //     return [
-        //         'statusCode' => 200,
-        //         'message' => 'Successfully signed out!'
-        //     ];
-        // }
-        // return redirect()->route('index')->with(['message' => 'Singed out successfully!']);
-        // return ;
+        return redirect()->route('index')->with(['message' => 'Singed out successfully!']);
     }
 
     public function register(Request $request){
@@ -83,7 +59,6 @@ class UsersController extends Controller
 
         $user->save();
 
-        return ResponseController::respond($request, 200, 'Register successfull! :)', 'login');
-        // return redirect()->route('login')->with(['message' => 'Register successful! :)']);
+        return redirect()->route('login')->with(['message' => 'Register successful! :)']);
     }
 }

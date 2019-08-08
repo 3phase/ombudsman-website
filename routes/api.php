@@ -15,14 +15,24 @@ use Illuminate\Http\Request;
 
 Route::middleware('web', 'json.response')->group(function() {
     Route::post('login', 'AuthController@login')->name('auth');
-
     Route::get('user', function(){
-        return response()->json(\App\User::find(\Cookie::get('user_id')));
-    })->middleware('auth');
+        $user = \App\User::select('id', 'name', 'email')->find(\Cookie::get('user_id'))->first();
+
+        $gains = $user->player()->first()->progress()->get();
+
+        $progress = [];
+
+        foreach($gains as $gain){
+            $node_id = DB::table('users_missions')->select('node_id')->where('progress_id', $gain->id)->first()->node_id;
+
+            array_push($progress, ['node' => \App\Node::select('id', 'dialog_file_path')->where('id', $node_id)->first()]);
+        }
         
-    Route::get('player', function(){
-        $user = \App\User::find(\Cookie::get('user_id'));
-        return response()->json($user->player()->first());
+        return response()->json([
+            'user' => $user,
+            'current_gains' => $gains,
+            'progress' => $progress
+        ]);
     })->middleware('auth:api');
 
     Route::get('progress', function(){
@@ -48,9 +58,23 @@ Route::middleware('web', 'json.response')->group(function() {
     
     Route::get('mission_node/{node_id}', function($node_id){
         $mission_node = \App\Node::find($node_id);
+    
+        $children = $mission_node->nodes()->get();
+
+        $options = [];
+
+        foreach ($children as $child) {
+            $composite_object = [
+                'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days', 'unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
+                    ->first(),
+                'child' => $child
+            ];
+            array_push($options, $composite_object);
+        }
+
         return response()->json([
-            $mission_node,
-            'options' => $mission_node->nodes()->get()
+            'node' => $mission_node,
+            'options' => $options
         ]);
     })->middleware('auth:api');
 });
