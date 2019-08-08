@@ -1,4 +1,8 @@
+<<<<<<< HEAD
  <?php
+=======
+<?php
+>>>>>>> 6b6730d2ca4547b9d643132e6fccaeea15b27c82
 
 use Illuminate\Database\Seeder;
 
