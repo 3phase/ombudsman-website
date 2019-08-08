@@ -15,10 +15,17 @@ use Illuminate\Http\Request;
 
 Route::middleware('web', 'json.response')->group(function() {
     Route::post('login', 'AuthController@login')->name('auth');
+<<<<<<< HEAD
     Route::get('user', function(){
         $user = \App\User::select('id', 'name', 'email')->find(\Cookie::get('user_id'))->first();
 
         $gains = $user->player()->first()->progress()->get();
+=======
+    Route::get('get-user', function(){
+        $user = \App\User::select('id', 'name', 'email')->where('email', \Cookie::get('user_email'))->first();
+
+        $gains = $user->progress()->get();
+>>>>>>> 6b6730d2ca4547b9d643132e6fccaeea15b27c82
 
         $progress = [];
 
@@ -73,7 +80,11 @@ Route::middleware('web', 'json.response')->group(function() {
         }
 
         return response()->json([
+<<<<<<< HEAD
             'node' => $mission_node,
+=======
+            $mission_node,
+>>>>>>> 6b6730d2ca4547b9d643132e6fccaeea15b27c82
             'options' => $options
         ]);
     })->middleware('auth:api');
