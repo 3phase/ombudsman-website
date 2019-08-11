@@ -67,13 +67,13 @@ Route::middleware('web', 'json.response')->group(function() {
             $composite_object = [
                 'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days', 'unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
                     ->first(),
-                'child' => $child
+                'node' => $child
             ];
             array_push($options, $composite_object);
         }
 
         return response()->json([
-            'node' => $mission_node,
+            'current_node' => $mission_node,
             'options' => $options
         ]);
     })->middleware('auth:api');
