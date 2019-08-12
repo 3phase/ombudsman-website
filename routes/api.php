@@ -41,11 +41,11 @@ Route::middleware('web', 'json.response')->group(function() {
     })->middleware('auth:api');
 
     Route::get('alien/{id}', function($id){
-        return response()->json(\App\Alien::find($id)->first());
+        return response()->json(\App\Alien::find($id));
     })->middleware('auth:api');
     
     Route::get('planet/{id}', function($id){
-        return response()->json(\App\Planet::find($id)->first());
+        return response()->json(\App\Planet::find($id));
     })->middleware('auth:api');
     
     Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $alien_mission_num){
