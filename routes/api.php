@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('web', 'json.response')->group(function() {
     Route::post('login', 'AuthController@login')->name('auth');
     Route::get('user', function(){
-        $user = \App\User::select('id', 'name', 'email')->find(\Cookie::get('user_id'))->first();
+        $user = \App\User::select('id', 'name', 'email')->find(\Cookie::get('user_id'));
 
         $gains = $user->player()->first()->progress()->get();
 
