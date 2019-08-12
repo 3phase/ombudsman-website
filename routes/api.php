@@ -48,7 +48,7 @@ Route::middleware('web', 'json.response')->group(function() {
         return response()->json(\App\Planet::find($id)->first());
     })->middleware('auth:api');
     
-    Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $mission_id){
+    Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $alien_mission_num){
         $mission = \App\Alien::find($alien_id)->missions()->skip($alien_mission_num - 1)->first();
         return response()->json([
             'alien' => \App\Alien::find($alien_id)->name,
@@ -59,7 +59,7 @@ Route::middleware('web', 'json.response')->group(function() {
     Route::get('mission_node/{node_id}', function($node_id){
         $mission_node = \App\Node::find($node_id);
     
-        $children = $mission_node->nodes()->get();
+        $children = $mission_node->options()->get();
 
         $options = [];
 

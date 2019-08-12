@@ -13,6 +13,7 @@ class NodesTable extends Seeder
     {
         DB::table('nodes')->insert([
             'dialog' => 'Баща ми ме бие с колана си. Трябва ми помощ!',
+            'speaker' => \App\Alien::find(1)->name
         ]);
 
         DB::table('nodes')->insert([
@@ -31,14 +32,17 @@ class NodesTable extends Seeder
 
         DB::table('nodes')->insert([
             'dialog' => 'Имам проблем...',
+            'speaker' => \App\Alien::find(11)->name
         ]);
 
         DB::table('nodes')->insert([
             'dialog' => 'Мама се дрогира с наркотик, наречен Sepiroth.',
+            'speaker' => \App\Alien::find(11)->name
         ]);
 
         DB::table('nodes')->insert([
             'dialog' => 'Успях да проследя кой е източникът на веществото - любовникът й.',
+            'speaker' => \App\Alien::find(11)->name
         ]);
 
         DB::table('nodes')->insert([
@@ -46,11 +50,13 @@ class NodesTable extends Seeder
         ]);
 
         DB::table('nodes')->insert([
-            'dialog' => 'Ти: Изпращам отряд, който ще го убие. Това са паразити, момче, трябва да бъдат отстранени...',
+            'dialog' => 'Ти: Изпращам отряд, който ще го убие.
+                Това са паразити, момче, трябва да бъдат отстранени...',
         ]);
 
         DB::table('nodes')->insert([
             'dialog' => 'Искам да дойда с вас... Искам да ме види преди да умре.',
+            'speaker' => \App\Alien::find(11)->name
         ]);
         
         DB::table('nodes')->insert([
@@ -63,10 +69,7 @@ class NodesTable extends Seeder
 
         DB::table('nodes')->insert([
             'dialog' => 'Добре, ще опитам...',
-        ]);
-
-        DB::table('nodes')->insert([
-            'dialog' => 'Ти: Така ще знаем кой е истинският източник.',
+            'speaker' => \App\Alien::find(11)->name
         ]);
 
         //Дни по-късно
@@ -74,6 +77,7 @@ class NodesTable extends Seeder
         DB::table('nodes')->insert([
             //131
             'dialog' => 'Фабриката се намира в квартал Св. Brbrbr',
+            'speaker' => \App\Alien::find(11)->name
         ]);
 
         DB::table('nodes')->insert([
@@ -82,6 +86,7 @@ class NodesTable extends Seeder
 
         DB::table('nodes')->insert([
             'dialog' => 'Искам да снимате труповете... Те са животни и заслужават да умрат...',
+            'speaker' => \App\Alien::find(11)->name
         ]);
 
         DB::table('nodes')->insert([
@@ -94,6 +99,7 @@ class NodesTable extends Seeder
 
         DB::table('nodes')->insert([
             'dialog' => 'Никога не изкам да ви видя очите повече...',
+            'speaker' => \App\Alien::find(11)->name
         ]);
 
         //------------------------------------------------------------------------------
