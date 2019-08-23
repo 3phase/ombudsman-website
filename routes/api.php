@@ -38,15 +38,15 @@ Route::middleware('web', 'json.response')->group(function() {
     Route::get('progress', function(){
         $user = \App\User::find(\Cookie::get('user_id'));
         return response()->json($user->player()->first()->progress()->first());
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
 
     Route::get('alien/{id}', function($id){
         return response()->json(\App\Alien::find($id));
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
     
     Route::get('planet/{id}', function($id){
         return response()->json(\App\Planet::find($id));
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
     
     Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $alien_mission_num){
         $mission = \App\Alien::find($alien_id)->missions()->skip($alien_mission_num - 1)->first();
@@ -54,7 +54,7 @@ Route::middleware('web', 'json.response')->group(function() {
             'alien' => \App\Alien::find($alien_id)->name,
             'starting_node_id' => $mission->pivot->node_id,
         ]);
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
     
     Route::get('mission_node/{node_id}', function($node_id){
         $mission_node = \App\Node::find($node_id);
@@ -76,5 +76,5 @@ Route::middleware('web', 'json.response')->group(function() {
             'current_node' => $mission_node,
             'options' => $options
         ]);
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
 });
