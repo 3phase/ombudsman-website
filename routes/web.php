@@ -17,9 +17,9 @@
 
 Route::get('/', 'HomeController@index')->name('index');
 
-Route::post('/register', 'UsersController@register');
+Route::post('/register', 'UsersController@register')->middleware('cors');
 
-Route::post('/login', 'UsersController@login');/* ->middleware('client_credentials'); */
+Route::post('/login', 'UsersController@login')->middleware('cors');
 
 Route::get('/register', function () {
     return view('register');
