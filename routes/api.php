@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('web', 'json.response')->group(function() {
-    Route::post('login', 'AuthController@login')->name('auth');
+    Route::post('login', 'AuthController@login')->name('auth')->middleware('cors');
+
     Route::get('user', function(){
         $user = \App\User::select('id', 'name', 'email')->find(\Cookie::get('user_id'));
 
@@ -33,7 +34,7 @@ Route::middleware('web', 'json.response')->group(function() {
             'current_gains' => $gains,
             'progress' => $progress
         ]);
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
 
     Route::get('progress', function(){
         $user = \App\User::find(\Cookie::get('user_id'));
@@ -58,17 +59,22 @@ Route::middleware('web', 'json.response')->group(function() {
     
     Route::get('mission_node/{node_id}', function($node_id){
         $mission_node = \App\Node::find($node_id);
+        unset($mission_node->created_at);
+        unset($mission_node->updated_at);
     
         $children = $mission_node->options()->get();
 
         $options = [];
 
         foreach ($children as $child) {
+            unset($child->created_at);
+            unset($child->updated_at);
             $composite_object = [
                 'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days', 'unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
                     ->first(),
                 'node' => $child
             ];
+
             array_push($options, $composite_object);
         }
 
