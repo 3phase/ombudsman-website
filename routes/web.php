@@ -30,3 +30,7 @@ Route::get('/login', function(){
 })->name('login', ['message' => ''])->middleware('cors');
 
 Route::get('/logout', 'UsersController@logout')->name('logout')->middleware('auth:api', 'cors');
+
+Route::get('/game', function() {
+	return view('game');
+})->middleware('auth:api');
