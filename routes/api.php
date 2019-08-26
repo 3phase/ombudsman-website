@@ -46,7 +46,10 @@ Route::middleware('web', 'json.response')->group(function() {
     })->middleware('auth:api', 'cors');
     
     Route::get('planet/{id}', function($id){
-        return response()->json(\App\Planet::find($id));
+        $planet = \App\Planet::find($id);
+        unset($planet->created_at);
+        unset($planet->updated_at);
+        return response()->json($planet);
     })->middleware('auth:api', 'cors');
     
     Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $alien_mission_num){
