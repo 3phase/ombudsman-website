@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('web', 'json.response')->group(function() {
-    Route::post('login', 'AuthController@login')->name('auth');
+    Route::post('login', 'AuthController@login')->name('auth')->middleware('cors');
+
     Route::get('user', function(){
         $user = \App\User::select('id', 'name', 'email')->find(\Cookie::get('user_id'));
 
@@ -33,20 +34,23 @@ Route::middleware('web', 'json.response')->group(function() {
             'current_gains' => $gains,
             'progress' => $progress
         ]);
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
 
     Route::get('progress', function(){
         $user = \App\User::find(\Cookie::get('user_id'));
         return response()->json($user->player()->first()->progress()->first());
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
 
     Route::get('alien/{id}', function($id){
         return response()->json(\App\Alien::find($id));
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
     
     Route::get('planet/{id}', function($id){
-        return response()->json(\App\Planet::find($id));
-    })->middleware('auth:api');
+        $planet = \App\Planet::find($id);
+        unset($planet->created_at);
+        unset($planet->updated_at);
+        return response()->json($planet);
+    })->middleware('auth:api', 'cors');
     
     Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $alien_mission_num){
         $mission = \App\Alien::find($alien_id)->missions()->skip($alien_mission_num - 1)->first();
@@ -54,21 +58,26 @@ Route::middleware('web', 'json.response')->group(function() {
             'alien' => \App\Alien::find($alien_id)->name,
             'starting_node_id' => $mission->pivot->node_id,
         ]);
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
     
     Route::get('mission_node/{node_id}', function($node_id){
         $mission_node = \App\Node::find($node_id);
+        unset($mission_node->created_at);
+        unset($mission_node->updated_at);
     
         $children = $mission_node->options()->get();
 
         $options = [];
 
         foreach ($children as $child) {
+            unset($child->created_at);
+            unset($child->updated_at);
             $composite_object = [
                 'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days', 'unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
                     ->first(),
                 'node' => $child
             ];
+
             array_push($options, $composite_object);
         }
 
@@ -76,5 +85,5 @@ Route::middleware('web', 'json.response')->group(function() {
             'current_node' => $mission_node,
             'options' => $options
         ]);
-    })->middleware('auth:api');
+    })->middleware('auth:api', 'cors');
 });
