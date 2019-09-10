@@ -45,8 +45,16 @@ Route::middleware('web', 'json.response')->group(function() {
     })->middleware('auth:api');
     
     Route::get('planet/{id}', function($id){
-        return response()->json(\App\Planet::find($id));
-    })->middleware('auth:api');
+        $planet = \App\Planet::find($id);
+        $aliens = \App\Alien::where('alien_id', $id);
+        unset($planet->created_at);
+        unset($planet->updated_at);
+        return response()->json($planet->name, $aliens);
+    })->middleware('auth:api', 'cors');
+
+    Route::get('planets/between/{starting_popularity}/{offset}', function($id, $starting_popularity, $offset){
+        
+    });
     
     Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $alien_mission_num){
         $mission = \App\Alien::find($alien_id)->missions()->skip($alien_mission_num - 1)->first();
