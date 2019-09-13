@@ -30,3 +30,15 @@ Route::get('/login', function(){
 })->name('login', ['message' => '']);
 
 Route::get('/logout', 'UsersController@logout')->name('logout')->middleware('auth:api');
+
+// CMS Routes
+
+Route::get('/admin', function() {
+        return view('cms.login');
+})->name('admin');
+
+Route::post('/login-admin', 'AdminController@login')->name('admin-login');
+
+Route::get('/cms', 'AdminController@cms')->middleware('admin.auth')->name('cms');
+
+// CMS Routes
