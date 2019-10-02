@@ -85,4 +85,12 @@ Route::middleware('web', 'json.response')->group(function() {
             'options' => $options
         ]);
     })->middleware('auth:api');
+
+    Routes::get('mission-nodes/', function(){
+       $nodeIds = $request->input('node_ids');
+       
+       $mission_nodes = Node::whereIn('id', $nodeIds)->get();
+
+       return $mission_nodes;
+    });
 });
