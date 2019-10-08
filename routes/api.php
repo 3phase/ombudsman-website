@@ -53,7 +53,10 @@ Route::middleware('web', 'json.response')->group(function() {
     })->middleware('auth:api', 'cors');
 
     Route::get('planets/between/{starting_popularity}/{offset}', function($id, $starting_popularity, $offset){
-        
+        $planets = \App\Planet::where('unlocking_popularity', '>', $starting_popularity)
+            ->where('unlocking_popularity', '<', $starting_popularity + $offset)->get();
+
+        return response()->json(['planets' => $planets]);
     });
     
     Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $alien_mission_num){
