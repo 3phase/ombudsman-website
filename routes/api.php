@@ -65,9 +65,8 @@ Route::middleware('web', 'json.response')->group(function() {
 
         foreach ($children as $child) {
             $composite_object = [
-                'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days', 'unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
-                    ->first(),
-                'node' => $child
+                'node' => ["node_properties" => $child, 'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days', 'unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
+                ->first()]
             ];
             array_push($options, $composite_object);
         }
