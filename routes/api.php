@@ -81,8 +81,9 @@ Route::middleware('web', 'json.response')->group(function() {
             unset($child->created_at);
             unset($child->updated_at);
             $composite_object = [
-                'node' => ["node_properties" => $child, 'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days', 'unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
-                ->first()]
+                'node' => ["node_properties" => $child, 'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
+                ->first()],
+                'option_properties' => \App\Option::select('unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first()
             ];
 
             array_push($options, $composite_object);
