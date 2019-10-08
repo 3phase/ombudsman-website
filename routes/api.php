@@ -80,10 +80,11 @@ Route::middleware('web', 'json.response')->group(function() {
         foreach ($children as $child) {
             unset($child->created_at);
             unset($child->updated_at);
+
             $composite_object = [
-                'node' => ["node_properties" => $child, 'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
+                'node' => ["id" => $child->id, "dialog" => $child->dialog, 'speaker' => $child->speaker, "pivot" => $child->pivot, 'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
                 ->first()],
-                'option_properties' => \App\Option::select('unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first()
+                'unlocking_trust' => \App\Option::select('unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first()->unlocking_trust
             ];
 
             array_push($options, $composite_object);
