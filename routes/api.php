@@ -15,85 +15,12 @@ use Illuminate\Http\Request;
 
 Route::middleware('web', 'json.response')->group(function() {
     Route::post('login', 'AuthController@login')->name('auth');
-    Route::get('user', function(){
-        $user = \App\User::select('id', 'name', 'email')->find(\Cookie::get('user_id'));
-
-        $gains = $user->player()->first()->progress()->get();
-
-        $progress = [];
-
-        foreach($gains as $gain){
-            $node_id = DB::table('users_missions')->select('node_id')->where('progress_id', $gain->id)->first()->node_id;
-
-            array_push($progress, ['node' => \App\Node::select('id', 'dialog_file_path')->where('id', $node_id)->first()]);
-        }
-        
-        return response()->json([
-            'user' => $user,
-            'current_gains' => $gains,
-            'progress' => $progress
-        ]);
-    })->middleware('auth:api');
-
-    Route::get('progress', function(){
-        $user = \App\User::find(\Cookie::get('user_id'));
-        return response()->json($user->player()->first()->progress()->first());
-    })->middleware('auth:api');
-
-    Route::get('alien/{id}', function($id){
-        return response()->json(\App\Alien::find($id));
-    })->middleware('auth:api');
-    
-    Route::get('planet/{id}', function($id){
-        $planet = \App\Planet::find($id);
-        $aliens = \App\Alien::where('alien_id', $id);
-        unset($planet->created_at);
-        unset($planet->updated_at);
-        return response()->json($planet->name, $aliens);
-    })->middleware('auth:api', 'cors');
-
-    Route::get('planets/between/{starting_popularity}/{offset}', function($id, $starting_popularity, $offset){
-        $planets = \App\Planet::where('unlocking_popularity', '>', $starting_popularity)
-            ->where('unlocking_popularity', '<', $starting_popularity + $offset)->get();
-
-        return response()->json(['planets' => $planets]);
-    });
-    
-    Route::get('/alien/{alien_id}/mission/{alien_mission_num}', function($alien_id, $alien_mission_num){
-        $mission = \App\Alien::find($alien_id)->missions()->skip($alien_mission_num - 1)->first();
-        return response()->json([
-            'alien' => \App\Alien::find($alien_id)->name,
-            'starting_node_id' => $mission->pivot->node_id,
-        ]);
-    })->middleware('auth:api');
-    
-    Route::get('mission_node/{node_id}', function($node_id){
-        $mission_node = \App\Node::find($node_id);
-    
-        $children = $mission_node->options()->get();
-
-        $options = [];
-
-        foreach ($children as $child) {
-            $composite_object = [
-                'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days', 'unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
-                    ->first(),
-                'node' => $child
-            ];
-            array_push($options, $composite_object);
-        }
-
-        return response()->json([
-            'current_node' => $mission_node,
-            'options' => $options
-        ]);
-    })->middleware('auth:api');
-
-    Route::get('mission-nodes/', function(){
-       $nodeIds = $request->input('node_ids');
-       
-       $mission_nodes = Node::whereIn('id', $nodeIds)->get();
-
-       return $mission_nodes;
-    });
+    Route::get('user', 'AuthController@getUser')->middleware('auth:api');
+    Route::get('progress', 'AuthController@getProgress')->middleware('auth:api');
+    Route::get('alien/{id}', 'AuthController@getAlien')->middleware('auth:api');
+    Route::get('planet/{id}', 'AuthController@getPlanet')->middleware('auth:api');
+    Route::get('planets/between/{starting_popularity}/{offset}', 'AuthController@getPlanetsByPopularity')->middleware('auth:api');
+    Route::get('/alien/{alien_id}/mission/{alien_mission_num}', 'AuthController@getMission')->middleware('auth:api');
+    Route::get('mission_node/{node_id}', 'AuthController@getMissionNode')->middleware('auth:api');
+    Route::get('mission_nodes/', 'AuthController@getMissionNodes')->middleware('auth:api');
 });
