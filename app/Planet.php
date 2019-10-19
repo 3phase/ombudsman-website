@@ -13,4 +13,8 @@ class Planet extends Model
     public function progress(){
         return $this->hasMany('App\\Progress');
     }
+
+    public function alienCoordinates(){
+        return $this->hasMany('App\\AlienCoordinates');
+    }
 }
