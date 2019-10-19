@@ -31,15 +31,17 @@ class AuthController extends Controller
 
     public function getPlanet($id){
         $planet = \App\Planet::find($id);
-        $aliens = \App\Alien::where(['planet_id' => $id])->get();
+        $aliens = \App\Alien::where(['planet_id' => $id])->select('name', 'picture_path')->get();
         unset($planet->created_at);
         unset($planet->updated_at);
-        return response()->json(['name' => $planet->name, 'background_image' => $planet->image_filename, 'aliens' => $aliens]);
+        return response()->json(['name' => $planet->name, 'background_image' => $planet->image_filename,
+            'aliens' => $aliens,
+            'alien_coordinates' => $planet->alienCoordinates()->select('xCoord', 'yCoord')->get()]);
     }
 
     public function getPlanetsByPopularity($starting_popularity, $offset){
         $planets = \App\Planet::where('unlocking_popularity', '>', $starting_popularity)
-            ->where('unlocking_popularity', '<', $starting_popularity + $offset)->get();
+            ->where('unlocking_popularity', '<', $starting_popularity + $offset)->select('id')->get();
 
         return response()->json(['planets' => $planets]);
     }

@@ -32,37 +32,37 @@ class AlienCoordinatesTableSeeder extends Seeder
         \App\AlienCoordinates::create([
             'xCoord' => 0.5000,
             'yCoord' => 0.5000,
-            'planet_id' => 2
+            'planet_id' => 11
         ]);
 
         \App\AlienCoordinates::create([
             'xCoord' => 0.1320,
             'yCoord' => 0.4280,
-            'planet_id' => 2
+            'planet_id' => 11
         ]);
 
         \App\AlienCoordinates::create([
             'xCoord' => 0.8000,
             'yCoord' => 0.6000,
-            'planet_id' => 2
+            'planet_id' => 11
         ]);
 
         \App\AlienCoordinates::create([
             'xCoord' => 0.5000,
             'yCoord' => 0.5000,
-            'planet_id' => 3
+            'planet_id' => 21
         ]);
 
         \App\AlienCoordinates::create([
             'xCoord' => 0.1320,
             'yCoord' => 0.4280,
-            'planet_id' => 3
+            'planet_id' => 21
         ]);
 
         \App\AlienCoordinates::create([
             'xCoord' => 0.8000,
             'yCoord' => 0.6000,
-            'planet_id' => 3
+            'planet_id' => 21
         ]);
     }
 }
