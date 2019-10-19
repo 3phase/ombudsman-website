@@ -15,7 +15,7 @@ class PlanetsTableSeeder extends Seeder
             'name' => 'Root35E2',
             'image_filename' => 'planet1.jpg',
             'level' => 1,
-            'unlocking_popularity' => 0 
+            'unlocking_popularity' => 0,
         ]);
         
         DB::table('planets')->insert([

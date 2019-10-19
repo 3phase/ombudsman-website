@@ -34,7 +34,7 @@ class AuthController extends Controller
         $aliens = \App\Alien::where(['planet_id' => $id])->get();
         unset($planet->created_at);
         unset($planet->updated_at);
-        return response()->json(['name' => $planet->name, 'aliens' => $aliens]);
+        return response()->json(['name' => $planet->name, 'background_image' => $planet->image_filename, 'aliens' => $aliens]);
     }
 
     public function getPlanetsByPopularity($starting_popularity, $offset){
