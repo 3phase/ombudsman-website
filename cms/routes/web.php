@@ -23,23 +23,20 @@ Route::get('/home', 'HomeController@index')->middleware("auth:api")->name('home'
 
 Route::middleware('auth')->group(function () {
     
-    Route::get('/cms', 'CmsController@index')->name('planets');
-    
-    Route::get('/cms/planet/{planet_id}/aliens', function ($planet_id) {
-        $planet = \App\Planet::find($planet_id);
-        $aliens = $planet->aliens;
-        return view('cms.aliens', ['aliens' => $aliens, 'planet' => $planet]);
-    });
+    Route::get('/cms', 'PlanetController@index')->name('planets');
+    Route::get('/cms/planet/{planet_id}', 'PlanetController@edit');
+    Route::post('/cms/planet/{planet_id}', 'PlanetController@store');
+    Route::delete('cms/planet/{planet_id}', 'PlanetController@delete');
 
-    Route::get('/cms/planet/{planet_id}', function($planet_id){
-        $planet = \App\Planet::find($planet_id);
-        return view('cms.edit_planet', ['planet' => $planet]);
-    });
+    Route::get('/cms/planet/{planet_id}/aliens', 'AlienController@index');
+    Route::get('/cms/planet/{planet_id}/alien/{alien_id}', 'AlienController@edit');
+    Route::post('/cms/planet/{planet_id}/alien/{alien_id}', 'AlienController@store');
+    Route::delete('cms/planet/{planet_id}/alien/{alien_id}', 'AlienController@delete');
 
-    Route::post('/cms/planet/{planet_id}', 'CmsController@edit_planet');
-    Route::delete('cms/planet/{planet_id', 'CmsController@delete_planet');
-    
-    // Route::post('/thing', 'CmsController@thing');
+
+    Route::get('/cms/planet/{planet_id}/aliens/{alien_id}/missions', 'MissionController@index');
+
+    // Route::get('cms/planet', function(){return view('');});
     
 });
 

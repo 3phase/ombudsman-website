@@ -7,7 +7,6 @@
     </div>
 
     <div>
-        
         <form action="/cms/planet/{{$planet->id}}" method="POST">
             @csrf
             @method('POST')

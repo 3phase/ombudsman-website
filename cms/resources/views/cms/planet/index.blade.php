@@ -3,7 +3,7 @@
 @section('content')
 <h1>So now it gets interesting!</h1>
 <div>
-    @foreach($planets as $planet)
+    @forelse($planets as $planet)
         <p>
             <a href="/cms/planet/{{$planet->id}}/aliens">{{$planet->name}}</a>
             <a href="/cms/planet/{{$planet->id}}">Редактирай</a>
@@ -11,8 +11,8 @@
         </p>
     @empty
         <p>Няма планети в базата!</p>
-    @endforeach
+    @endforelse
 
-    <a href="/cms/planet/">+</a>
+    <!-- <aR href="/cms/planet/"><button>+</button></a> -->
 </div>
 @endsection
