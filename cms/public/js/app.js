@@ -49197,6 +49197,8 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./jquery */ "./resources/js/jquery.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -49348,6 +49350,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/jquery.js":
+/*!********************************!*\
+  !*** ./resources/js/jquery.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49366,8 +49379,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/parti/Desktop/projects/school/cms/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/parti/Desktop/projects/school/cms/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/parti/Desktop/projects/school/guardcity/cms/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/parti/Desktop/projects/school/guardcity/cms/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

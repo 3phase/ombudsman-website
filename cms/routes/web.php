@@ -24,15 +24,12 @@ Route::get('/home', 'HomeController@index')->middleware("auth:api")->name('home'
 Route::middleware('auth')->group(function () {
     
     Route::get('/cms', 'PlanetController@index')->name('planets');
-    Route::get('/cms/planet/{planet_id}', 'PlanetController@edit');
-    Route::post('/cms/planet/{planet_id}', 'PlanetController@store');
-    Route::delete('cms/planet/{planet_id}', 'PlanetController@delete');
 
     Route::get('/cms/planet/{planet_id}/aliens', 'AlienController@index');
     Route::get('/cms/planet/{planet_id}/alien/{alien_id}', 'AlienController@edit');
+    Route::post('/cms/planet/{planet_id}/alien', 'AlienController@add');
     Route::post('/cms/planet/{planet_id}/alien/{alien_id}', 'AlienController@store');
-    Route::delete('cms/planet/{planet_id}/alien/{alien_id}', 'AlienController@delete');
-
+    Route::post('/cms/planet/{planet_id}/alien/{alien_id}/delete', 'AlienController@delete');
 
     Route::get('/cms/planet/{planet_id}/aliens/{alien_id}/missions', 'MissionController@index');
 

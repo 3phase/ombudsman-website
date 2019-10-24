@@ -74,7 +74,9 @@
 
         <main class="py-4">
             @include('layouts.flash-message')
-            @yield('content')
+            <div class="container">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>
