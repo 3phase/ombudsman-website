@@ -51,9 +51,17 @@ class AuthController extends Controller
 
     public function getMission($alien_id, $alien_mission_num){
         $mission = \App\Alien::find($alien_id)->missions()->skip($alien_mission_num - 1)->first();
+
+        if ($mission != null){
+            $mission = $mission->pivot;
+        }
+        else{
+            $mission = (object) array('node_id' => -1);
+        }
+
         return response()->json([
             'alien' => \App\Alien::find($alien_id)->name,
-            'starting_node_id' => $mission->pivot->node_id,
+            'starting_node_id' => $mission->node_id,
         ]);
     }
 
