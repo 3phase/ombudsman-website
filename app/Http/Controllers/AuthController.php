@@ -31,7 +31,7 @@ class AuthController extends Controller
 
     public function getPlanet($id){
         $planet = \App\Planet::find($id);
-        $aliens = \App\Alien::where(['planet_id' => $id])->select('name', 'picture_path')->get();
+        $aliens = \App\Alien::where(['planet_id' => $id])->select('id', 'name', 'picture_path')->get();
         unset($planet->created_at);
         unset($planet->updated_at);
         return response()->json([
