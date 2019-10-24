@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OptionsTable::class);
         $this->call(PlanetsTableSeeder::class);
         $this->call(AliensMissionsTable::class);
+        $this->call(AlienCoordinatesTableSeeder::class);
     }
 }
