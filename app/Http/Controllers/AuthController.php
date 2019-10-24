@@ -41,7 +41,7 @@ class AuthController extends Controller
 
     public function getPlanetsByPopularity($starting_popularity, $offset){
         $planets = \App\Planet::where('unlocking_popularity', '>', $starting_popularity)
-            ->where('unlocking_popularity', '<', $starting_popularity + $offset)->select('id', 'image_filename')->get();
+            ->where('unlocking_popularity', '<', $starting_popularity + $offset)->select('id', 'image_filename', 'name')->get();
 
         return response()->json(['planets' => $planets]);
     }
