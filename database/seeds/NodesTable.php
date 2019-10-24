@@ -98,10 +98,58 @@ class NodesTable extends Seeder
         ]);
 
         DB::table('nodes')->insert([
+            //181
             'dialog' => 'Никога не изкам да ви видя очите повече...',
             'speaker' => \App\Alien::find(11)->name
         ]);
 
         //------------------------------------------------------------------------------
+
+        DB::table('nodes')->insert([
+            //191
+            'dialog' => 'Наште са сектанти.',
+            'speaker' => \App\Alien::find(31)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //201
+            'dialog' => 'Не ми позволяват да си изразявам мислите вкъщи и ме тормозят. Трябва ми помощ...',
+            'speaker' => \App\Alien::find(31)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //211
+            'dialog' => 'Ти: Ти нямаш ли друга работа?!? Я не ме занимавй и си ходи при изродските родители!'
+        ]);
+
+        DB::table('nodes')->insert([
+            //221
+            'dialog' => 'Waaah!!!',
+            'speaker' => \App\Alien::find(31)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //231
+            'dialog' => 'Ти: Добре. Изпращам екип за разследване на сектата. Скоро твоите родители дори няма да могат да те докоснат.',
+        ]);
+
+        DB::table('nodes')->insert([
+            //241
+            'dialog' => 'Разчитам на вас!',
+            'speaker' => \App\Alien::find(31)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //251
+            'dialog' => 'Ти: Отиваш в приют! Трябва да се социализираш с другите!',
+        ]);
+
+        DB::table('nodes')->insert([
+            //261
+            'dialog' => 'Щом така сте решили, че е правилно...',
+            'speaker' => \App\Alien::find(31)->name
+        ]);
+
+        //------------------------------------------------------
     }
 }
