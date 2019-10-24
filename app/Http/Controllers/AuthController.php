@@ -34,7 +34,9 @@ class AuthController extends Controller
         $aliens = \App\Alien::where(['planet_id' => $id])->select('name', 'picture_path')->get();
         unset($planet->created_at);
         unset($planet->updated_at);
-        return response()->json(['name' => $planet->name, 'image_filename' => $planet->image_filename,
+        return response()->json([
+            'name' => $planet->name,
+            'image_filename' => $planet->image_filename,
             'background_image' => $planet->background_image,
             'aliens' => $aliens,
             'alien_coordinates' => $planet->alienCoordinates()->select('xCoord', 'yCoord')->get()]);
