@@ -151,5 +151,69 @@ class NodesTable extends Seeder
         ]);
 
         //------------------------------------------------------
+
+        DB::table('nodes')->insert([
+            //271
+            'dialog' => 'Няма разбиране в този свят!',
+            'speaker' => \App\Alien::find(41)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //281
+            'dialog' => 'Има ли начин да споделя чувства с някого? С вас, може би?',
+            'speaker' => \App\Alien::find(41)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //291
+            'dialog' => 'Ти: Не! Нямам време за това!'
+        ]);
+
+        DB::table('nodes')->insert([
+            //301
+            'dialog' => 'Вие сте чудовище!!!',
+            'speaker' => \App\Alien::find(41)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //311
+            'dialog' => 'Ти: Разкажи ми, съкровище...',
+        ]);
+
+        DB::table('nodes')->insert([
+            //321
+            'dialog' => 'Благодаря много!',
+            'speaker' => \App\Alien::find(41)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //331
+            'dialog' => 'Преди две години се опитах да избягам от фермата на баба ми...',
+            'speaker' => \App\Alien::find(41)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //341
+            'dialog' => 'Планът беше да се скрия в калта и да изчакам, докато не помисли, че съм избягал и след това реално да избягам!',
+            'speaker' => \App\Alien::find(41)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //351
+            'dialog' => 'Тя обаче ме намери. Бях си приготвил малко острие и когато ме доближи, я прободох в гърлото!',
+            'speaker' => \App\Alien::find(41)->name
+        ]);
+
+        DB::table('nodes')->insert([
+            //361
+            'dialog' => 'Умря в агония и остана там, в калта. Никой не знае за нейното изчезване, освен нас двамата...',
+            'speaker' => \App\Alien::find(41)->name
+        ]);
+        
+        DB::table('nodes')->insert([
+            //371
+            'dialog' => 'Благодаря за изслушването!',
+            'speaker' => \App\Alien::find(41)->name
+        ]);
     }
 }

@@ -29,10 +29,10 @@ class AliensMissionsTable extends Seeder
             'unlocking_popularity' => 1
         ]);
 
-        // Db::table('aliens_missions')->insert([
-        //     'alien_id' => 11,
-        //     'node_id' => 41,
-        //     'unlocking_popularity' => 1
-        // ]);
+        Db::table('aliens_missions')->insert([
+            'alien_id' => 11,
+            'node_id' => 271,
+            'unlocking_popularity' => 1
+        ]);
     }
 }

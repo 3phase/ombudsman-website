@@ -260,5 +260,105 @@ class OptionsTable extends Seeder
             'days' => 0,
             'unlocking_trust' => -3000
         ]);
+
+        DB::table('options')->insert([
+            'start_id' => 271,
+            'next_id' => 281,
+            'popularity' => 0,
+            'trust' => -1,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 281,
+            'next_id' => 291,
+            'popularity' => 0,
+            'trust' => -20,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 291,
+            'next_id' => 301,
+            'popularity' => -1,
+            'trust' => -1,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 281,
+            'next_id' => 311,
+            'popularity' => 1,
+            'trust' => 18,
+            'energy' => -2,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 311,
+            'next_id' => 321,
+            'popularity' => 0,
+            'trust' => 0,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 321,
+            'next_id' => 331,
+            'popularity' => 0,
+            'trust' => 0,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 331,
+            'next_id' => 341,
+            'popularity' => 0,
+            'trust' => 0,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 341,
+            'next_id' => 351,
+            'popularity' => 0,
+            'trust' => 0,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 351,
+            'next_id' => 361,
+            'popularity' => 0,
+            'trust' => 0,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
+
+        DB::table('options')->insert([
+            'start_id' => 361,
+            'next_id' => 371,
+            'popularity' => 0,
+            'trust' => 0,
+            'energy' => 0,
+            'days' => 0,
+            'unlocking_trust' => -3000
+        ]);
     }
 }
