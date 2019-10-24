@@ -17,6 +17,7 @@ class CreatePlanets extends Migration
             $table->increments('id');
             $table->string('name', 45);
             $table->string('image_filename');
+            $table->string('background_image');
             $table->integer('level');
             $table->integer('unlocking_popularity');
             $table->timestamps();
