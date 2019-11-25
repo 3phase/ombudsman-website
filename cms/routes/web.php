@@ -31,10 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/cms/planet/{planet_id}/alien/{alien_id}', 'AlienController@store');
     Route::post('/cms/planet/{planet_id}/alien/{alien_id}/delete', 'AlienController@delete');
 
-    Route::get('/cms/planet/{planet_id}/aliens/{alien_id}/missions', 'MissionController@index');
+    Route::get('/cms/planet/{planet_id}/alien/{alien_id}/missions', 'MissionController@index');
 
     // Route::get('cms/planet', function(){return view('');});
     
 });
 
-// CMS
+// CMS 
