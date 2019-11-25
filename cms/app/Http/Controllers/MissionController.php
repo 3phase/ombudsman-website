@@ -11,8 +11,9 @@ class MissionController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($planet_id, $alien_id)
     {
-        return view('home');
+        dd(\App\Alien::find($alien_id)->missions);
+        return view('cms.mission.index');
     }
 }

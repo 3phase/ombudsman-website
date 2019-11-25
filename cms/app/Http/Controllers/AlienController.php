@@ -13,10 +13,12 @@ class AlienController extends Controller
     }
 
     public function add($planet_id, Request $request ){
-        $new_alien = new \App\Alien($request->name, $planet_id);
-        dd($new_alien);
+        $new_alien = new \App\Alien;
+        $new_alien->name = $request->name;
+        $new_alien->planet_id = $planet_id;
+        $new_alien->picture_path = "No pictures available at the moment!";
         $new_alien->save();
-        return redirect('aliens')->with("success", "Успешно добавихте извънземно!");
+        return back()->with("success", "Успешно добавихте извънземно!");
     }
 
     public function edit($planet_id, $alien_id){

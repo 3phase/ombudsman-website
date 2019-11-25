@@ -1,8 +1,3 @@
- <h1>{{$alien->name}} -> планета {{$planet->name}}</h1>
-<div>
-    <img src="#" alt="Image of the аlien...">
-</div>
-
 <div>
     <form action="{{$action}}" method="POST">
         @csrf
