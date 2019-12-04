@@ -26,6 +26,11 @@ Route::get('/register', function () {
 })->name('register');
 
 Route::get('/login', function(){
+    if (request()->cookie('auth_token') != null){
+        \Cookie::queue(cookie('session_id', session()->getId()));
+        return app('App\Http\Controllers\ResponseController')::respond(request(), 200, 'Welcome back!', 'index');
+    }
+
     return view('login');
 })->name('login', ['message' => '']);
 

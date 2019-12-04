@@ -18,10 +18,10 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        if(!$request->cookie('session_id')){
-            Log::info($request->path().' requested from an unauthenticated user!');
-            return ResponseController::respond($request, 401, 'Not authenticated!', 'login');
-        }
+        // if(!$request->cookie('session_id')){
+        //     Log::info($request->path().' requested from an unauthenticated user!');
+        //     return ResponseController::respond($request, 401, 'Not authenticated!', 'login');
+        // }
         return $next($request);
     }
 }

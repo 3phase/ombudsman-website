@@ -67,7 +67,7 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    @if (Cookie::get('user_id') !== null)
+                    @if (Cookie::get('session_id') !== null)
                         <a href="{{ url('/') }}">Home</a>
                         <a href="{{ url('/logout') }}">Logout</a>
                     @else

@@ -29,8 +29,10 @@ class UsersController extends Controller
         $params = $request->only('email', 'password');
         if(Auth::attempt($params)){
             Log::info('User with email '.$request->email.' is now authenticated!');
-            \Cookie::queue(cookie('session_id', $request->session()->getId()));
             \Cookie::queue(cookie('user_id', Auth::user()->id));
+            \Cookie::queue(cookie('session_id', session()->getId()));
+            $tokenObject = app('App\Http\Controllers\AuthController')->login($request);
+            \Cookie::queue(cookie('auth_token', json_decode($tokenObject->getContent())->token));
 
             return ResponseController::respond($request, 200, 'Welcome '.$request->email.'!', 'index');
         }

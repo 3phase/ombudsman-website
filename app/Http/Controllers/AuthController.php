@@ -22,7 +22,11 @@ class AuthController extends Controller
 
     public function getProgress(){
         $user = \App\User::find(\Cookie::get('user_id'));
-        return response()->json($user->player()->first()->progress()->first());
+        return response()->json($user->player()->first()->progress()->first(), $user->player()->first()->nickname);
+    }
+
+    public function saveProgress($progress){
+        //FINISH!
     }
 
     public function getAlien($id){
