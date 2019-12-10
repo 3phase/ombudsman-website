@@ -45,7 +45,6 @@ class UsersController extends Controller
     public function logout(Request $request){
         Auth::logout();
         \Cookie::queue(\Cookie::forget('session_id'));
-        \Cookie::queue(\Cookie::forget('auth_token'));
         return redirect()->route('index')->with(['message' => 'Singed out successfully!']);
     }
 
