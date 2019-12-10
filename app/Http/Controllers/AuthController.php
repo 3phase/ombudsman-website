@@ -26,7 +26,21 @@ class AuthController extends Controller
     }
 
     public function saveProgress($progress){
-        //FINISH!
+        $progress_object = json_decode($progress);
+
+        $user = \App\User::find(\Cookie::get('user_id'));
+        
+        $user->player()->progress()->first()->trust = $progress_object->trust;
+        $user->player()->progress()->first()->popularity = $progress_object->popularity;
+        $user->player()->progress()->first()->jokers = $progress_object->jokers;
+        $user->player()->progress()->first()->jokers_level = $progress_object->jokers_level;
+        $user->player()->progress()->first()->days = $progress_object->days;
+        $user->player()->progress()->first()->points = $progress_object->points;
+        $user->player()->progress()->first()->trust = $progress_object->trust;
+        $user->player()->progress()->first()->planet_id = $progress_object->planet_id;
+
+        $user->plauer()->progress()->first()->save();
+        return response()->json(['status'=>'saved']);
     }
 
     public function getAlien($id){

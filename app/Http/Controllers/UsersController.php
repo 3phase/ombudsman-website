@@ -32,7 +32,7 @@ class UsersController extends Controller
             \Cookie::queue(cookie('user_id', Auth::user()->id));
             \Cookie::queue(cookie('session_id', session()->getId()));
             $tokenObject = app('App\Http\Controllers\AuthController')->login($request);
-            \Cookie::queue(cookie('auth_token', json_decode($tokenObject->getContent())->token));
+            \Cookie::queue(cookie('auth_token', json_decode($tokenObject->getContent())->token, null, null, false, false));
 
             return ResponseController::respond($request, 200, 'Welcome '.$request->email.'!', 'index');
         }
@@ -42,13 +42,14 @@ class UsersController extends Controller
 
     public function logout(Request $request){
         Auth::logout();
-        \Cookie::queue(\Cookie::forget('user_id'));
         \Cookie::queue(\Cookie::forget('session_id'));
         return redirect()->route('index')->with(['message' => 'Singed out successfully!']);
     }
 
     public function register(Request $request){
         $user = new \App\User;
+        $player = new \App\Player;
+
         $isValid = $request->validate([
             'email' => 'required|unique:users|min:3',
             'name' => 'nullable|min:3',
@@ -60,6 +61,11 @@ class UsersController extends Controller
         $user->password = Hash::make($request->input('password'), ['rounds' => 12]);
 
         $user->save();
+
+        $player->nickname = $user->name;
+        $player->user_id = $user->id;
+
+        $player->save();
 
         return redirect()->route('login')->with(['message' => 'Register successful! :)']);
     }
