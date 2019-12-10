@@ -32,7 +32,9 @@ class UsersController extends Controller
             \Cookie::queue(cookie('user_id', Auth::user()->id));
             \Cookie::queue(cookie('session_id', session()->getId()));
             $tokenObject = app('App\Http\Controllers\AuthController')->login($request);
-            \Cookie::queue(cookie('auth_token', json_decode($tokenObject->getContent())->token, null, null, false, false));
+            // \Cookie::queue(cookie('auth_token', json_decode($tokenObject->getContent())->token, null, null, false, false));
+
+            \Cookie::queue(\Cookie::make('auth_token', json_decode($tokenObject->getContent())->token, 1800, null, null, false, false));
 
             return ResponseController::respond($request, 200, 'Welcome '.$request->email.'!', 'index');
         }
@@ -43,6 +45,7 @@ class UsersController extends Controller
     public function logout(Request $request){
         Auth::logout();
         \Cookie::queue(\Cookie::forget('session_id'));
+        \Cookie::queue(\Cookie::forget('auth_token'));
         return redirect()->route('index')->with(['message' => 'Singed out successfully!']);
     }
 
