@@ -15,15 +15,15 @@
 //     return "Autenticiran si, boy!";
 // })->name('successfulAuth');
 
-Route::get('/', 'HomeController@index')->name('index');
+Route::get('/', 'HomeController@index')->name('index')->middleware('cors');
 
-Route::post('/register', 'UsersController@register');
+Route::post('/register', 'UsersController@register')->middleware('cors');
 
-Route::post('/login', 'UsersController@login');/* ->middleware('client_credentials'); */
+Route::post('/login', 'UsersController@login')->middleware('cors')->middleware('cors');
 
 Route::get('/register', function () {
     return view('register');
-})->name('register');
+})->name('register')->middleware('cors');
 
 Route::get('/login', function(){
     if (request()->cookie('auth_token') != null){
@@ -32,6 +32,10 @@ Route::get('/login', function(){
     }
 
     return view('login');
-})->name('login', ['message' => '']);
+})->name('login', ['message' => ''])->middleware('cors');
 
-Route::get('/logout', 'UsersController@logout')->name('logout')->middleware('auth:api');
+Route::get('/logout', 'UsersController@logout')->name('logout')->middleware('auth:api', 'cors');
+
+Route::get('/game', function() {
+	return view('game');
+})->middleware('auth:api');

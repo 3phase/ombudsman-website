@@ -35,10 +35,12 @@ class AuthController extends Controller
 
     public function getPlanet($id){
         $planet = \App\Planet::find($id);
-        $aliens = \App\Alien::where(['planet_id' => $id])->select('name', 'picture_path')->get();
+        $aliens = \App\Alien::where(['planet_id' => $id])->select('id', 'name', 'picture_path')->get();
         unset($planet->created_at);
         unset($planet->updated_at);
-        return response()->json(['name' => $planet->name, 'image_filename' => $planet->image_filename,
+        return response()->json([
+            'name' => $planet->name,
+            'image_filename' => $planet->image_filename,
             'background_image' => $planet->background_image,
             'aliens' => $aliens,
             'alien_coordinates' => $planet->alienCoordinates()->select('xCoord', 'yCoord')->get()]);
@@ -46,16 +48,24 @@ class AuthController extends Controller
 
     public function getPlanetsByPopularity($starting_popularity, $offset){
         $planets = \App\Planet::where('unlocking_popularity', '>', $starting_popularity)
-            ->where('unlocking_popularity', '<', $starting_popularity + $offset)->select('id')->get();
+            ->where('unlocking_popularity', '<', $starting_popularity + $offset)->select('id', 'image_filename', 'name')->get();
 
         return response()->json(['planets' => $planets]);
     }
 
     public function getMission($alien_id, $alien_mission_num){
         $mission = \App\Alien::find($alien_id)->missions()->skip($alien_mission_num - 1)->first();
+
+        if ($mission != null){
+            $mission = $mission->pivot;
+        }
+        else{
+            $mission = (object) array('node_id' => -1);
+        }
+
         return response()->json([
             'alien' => \App\Alien::find($alien_id)->name,
-            'starting_node_id' => $mission->pivot->node_id,
+            'starting_node_id' => $mission->node_id,
         ]);
     }
 

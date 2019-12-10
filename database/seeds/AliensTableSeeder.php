@@ -13,35 +13,32 @@ class AliensTableSeeder extends Seeder
     {
         \App\Alien::create([
             'name' => 'e',
-            'picture_path' => 'is there a meaning or purpose in this life?',
+            'picture_path' => 'e',
             'planet_id' => 1
         ]);
 
         \App\Alien::create([
             'name' => 'Saiya',
-            'picture_path' => 'is there a meaning or purpose in this life?',
+            'picture_path' => 'Saiya',
             'planet_id' => 1
         ]);
 
         \App\Alien::create([
             'name' => 'Innard',
-            'picture_path' => 'is there a meaning or purpose in this life?',
+            'picture_path' => 'Innard',
             'planet_id' => 1
         ]);
 
-        // DB::table('aliens')->insert([
-        //     'name' => 'e',
-        //     'picture_path' => 'is there a meaning or purpose in this life?'
-        // ]);
+        \App\Alien::create([
+            'name' => 'Djikstra',
+            'picture_path' => 'Djikstra',
+            'planet_id' => 11
+        ]);
 
-        // DB::table('aliens')->insert([
-        //     'name' => 'Saiya',
-        //     'picture_path' => 'is there a meaning or purpose in this life?'
-        // ]);
-
-        // DB::table('aliens')->insert([
-        //     'name' => 'Innard',
-        //     'picture_path' => 'is there a meaning or purpose in this life?'
-        // ]);
+        \App\Alien::create([
+            'name' => 'Praso',
+            'picture_path' => 'Praso',
+            'planet_id' => 11
+        ]);
     }
 }
