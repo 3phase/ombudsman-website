@@ -14,19 +14,19 @@ class PlanetsTableSeeder extends Seeder
         DB::table('planets')->insert([
             'name' => 'Root35E2',
             'level' => 1,
-            'reachable_population' => 0 
+            'unlocking_popularity' => 0 
         ]);
         
         DB::table('planets')->insert([
             'name' => 'El',
             'level' => 3,
-            'reachable_population' => 100 
+            'unlocking_popularity' => 100 
         ]);
 
         DB::table('planets')->insert([
             'name' => 'Esteban',
             'level' => 2,
-            'reachable_population' => 5 
+            'unlocking_popularity' => 5 
         ]);
     }
 }

@@ -67,8 +67,9 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    @if (request()->session()->get('user_id'))
-                        <a href="{{ url('/home') }}">Home</a>
+                    @if (Cookie::get('user_id') !== null)
+                        <a href="{{ url('/') }}">Home</a>
+                        <a href="{{ url('/logout') }}">Logout</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -79,18 +80,22 @@
                 </div>
             @endif
 
+
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
                 </div>
 
 
-                @if (isset($name))
+                <!-- @if (isset($name))
                     <div class="alert alert-success">
                         Hello, {{ $name }}
                     </div>
-                @endif
+                @endif -->
 
+                <div class = "alert alert-success">
+                    {{ session('message' ) }}
+                </div>
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>

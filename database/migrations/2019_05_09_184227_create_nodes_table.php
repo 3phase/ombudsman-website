@@ -14,7 +14,8 @@ class CreateNodesTable extends Migration
     {
         Schema::create('nodes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('dialog_file_path');
+            $table->string('dialog');
+            $table->string('speaker')->default('player');
             $table->timestamps();
         });
     }

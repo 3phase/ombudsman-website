@@ -11,7 +11,7 @@ class AuthController extends Controller
         if ($user == null) {
             return response([
                 'message' => 'Unauthenticated'
-            ], 200);
+            ], 403);
         }
         
         $token = $user->createToken('utoken')->accessToken;
