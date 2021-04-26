@@ -16,7 +16,7 @@ class AlterProgress extends Migration
         Schema::table('progress', function (Blueprint $table) {
             $table->dropColumn('days');
             $table->dropColumn('popularity');
-            
+            $table->bigInteger('energy');
         });
     }
 

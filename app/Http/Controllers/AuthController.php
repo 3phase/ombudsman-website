@@ -15,6 +15,7 @@ class AuthController extends Controller
         }
         
         $token = $user->createToken('utoken')->accessToken;
+
         return response([
             'token' => $token
         ], 200);
@@ -25,20 +26,32 @@ class AuthController extends Controller
         return response()->json($user->player()->first()->progress()->first(), $user->player()->first()->nickname);
     }
 
-    public function saveProgress($progress){
+    public function saveProgress(Request $request){
+        $progress = $request->getContent();
         $progress_object = json_decode($progress);
 
         $user = \App\User::find(\Cookie::get('user_id'));
-        
-        $user->player()->progress()->first()->trust = $progress_object->trust;
-        $user->player()->progress()->first()->popularity = $progress_object->popularity;
-        $user->player()->progress()->first()->jokers = $progress_object->jokers;
-        $user->player()->progress()->first()->jokers_level = $progress_object->jokers_level;
-        // $user->player()->progress()->first()->days = $progress_object->days;
-        $user->player()->progress()->first()->points = $progress_object->points;
-        $user->player()->progress()->first()->planet_id = $progress_object->planet_id;
+        $progress = \App\Progress::where('player_id', $user->id)->first();
 
-        $user->plauer()->progress()->first()->save();
+        if ($progress == null){
+            $progress = new \App\Progress([
+                'trust' => $progress_object->trust,
+                'energy' => $progress_object->energy,
+                'points' => $progress_object->points,
+                'planet_id' => $progress_object->planet_id,
+                'player_id' => $user->id]);
+                
+            $progress->save();
+        }
+        else{
+            $progress->trust = $progress_object->trust;
+            $progress->energy = $progress_object->energy;
+            $progress->points = $progress_object->points;
+            $progress->planet_id = $progress_object->planet_id;
+
+            $progress->save();
+        }
+
         return response()->json(['status'=>'saved']);
     }
 

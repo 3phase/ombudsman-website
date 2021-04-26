@@ -28,6 +28,6 @@ class CreateAlienCoordinatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('AlienCoordinates');
+        Schema::dropIfExists('alien_coordinates');
     }
 }

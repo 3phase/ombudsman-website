@@ -19,13 +19,15 @@ Route::get('/', 'HomeController@index')->name('index')->middleware('cors');
 
 Route::post('/register', 'UsersController@register')->middleware('cors');
 
-Route::post('/login', 'UsersController@login')->middleware('cors')->middleware('cors');
+Route::post('/login', 'UsersController@login')->middleware('cors', 'auth:api');
 
 Route::get('/register', function () {
     return view('register');
 })->name('register')->middleware('cors');
 
 Route::get('/login', function(){
+    Log::info('message');
+    
     if (request()->cookie('auth_token') != null){
         \Cookie::queue(cookie('session_id', session()->getId()));
         return app('App\Http\Controllers\ResponseController')::respond(request(), 200, 'Welcome back!', 'index');

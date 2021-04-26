@@ -15,6 +15,8 @@ class Progress extends Model
     public function planet(){
         return $this->belongsTo('App\\Planet', 'planet_id');
     }
+
+    protected $fillable = ['trust', 'energy', 'points', 'planet_id', 'player_id'];
     
     const CREATED_AT = null;
     const UPDATED_AT = null;
