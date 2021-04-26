@@ -15,7 +15,7 @@ class AlterNode extends Migration
     {
         Schema::table('nodes', function (Blueprint $table) {
             $table->bigInteger('unlocking_trust');
-            $table->bigInteger('unlocking_day');
+            $table->bigInteger('unlocking_days');
         });
     }
 
