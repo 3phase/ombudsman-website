@@ -16,7 +16,6 @@ class CreateUsersMissionsTable extends Migration
         Schema::create('users_missions', function (Blueprint $table) {
             $table->integer('progress_id');
             $table->integer('node_id');
-            $table->timestamps();
         });
     }
 

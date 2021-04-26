@@ -18,7 +18,6 @@ class CreateAlienCoordinatesTable extends Migration
             $table->double('xCoord', 5, 4);
             $table->double('yCoord', 5, 4);
             $table->bigInteger('planet_id');
-            $table->timestamps();
         });
     }
 

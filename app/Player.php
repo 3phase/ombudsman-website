@@ -13,4 +13,7 @@ class Player extends Model
     public function progress(){
         return $this->hasOne('App\\Progress');
     }
+
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
 }

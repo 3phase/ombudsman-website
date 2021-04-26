@@ -14,4 +14,6 @@ class Alien extends Model
         return $this->belongsToMany('App\\Node', 'App\\AliensMission');
     }
 
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
 }   

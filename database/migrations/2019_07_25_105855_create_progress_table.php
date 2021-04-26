@@ -23,7 +23,6 @@ class CreateProgressTable extends Migration
             $table->integer('days');
             $table->integer('points');
             $table->integer('planet_id');
-            $table->timestamps();
         });
     }
 

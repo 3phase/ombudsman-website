@@ -20,7 +20,6 @@ class CreatePlanets extends Migration
             $table->string('background_image');
             $table->integer('level');
             $table->integer('unlocking_popularity');
-            $table->timestamps();
         });
     }
 

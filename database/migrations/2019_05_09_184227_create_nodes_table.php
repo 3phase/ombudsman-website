@@ -16,7 +16,6 @@ class CreateNodesTable extends Migration
             $table->increments('id');
             $table->string('dialog');
             $table->string('speaker')->default('player');
-            $table->timestamps();
         });
     }
 
