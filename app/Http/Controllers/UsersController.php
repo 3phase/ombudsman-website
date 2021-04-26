@@ -28,13 +28,13 @@ class UsersController extends Controller
     public function login(Request $request){
         $params = $request->only('email', 'password');
         if(Auth::attempt($params)){
-            Log::info('User with email '.$request->email.' is now authenticated!');
-            \Cookie::queue(cookie('user_id', Auth::user()->id));
-            \Cookie::queue(cookie('session_id', session()->getId()));
             $tokenObject = app('App\Http\Controllers\AuthController')->login($request);
-            \Cookie::queue(cookie('auth_token', json_decode($tokenObject->getContent())->token, null, null, false, false));
 
-            return ResponseController::respond($request, 200, 'Welcome '.$request->email.'!', 'index');
+            \Cookie::queue(\Cookie::make('auth_token', json_decode($tokenObject->getContent())->token, 1800, null, null, false, false));            
+            \Cookie::queue(\Cookie::make('user_id', Auth::user()->id, 120, null, null, false, false));
+            \Cookie::queue(\Cookie::make('session_id', session()->getId(), 120, null, null, false, false));
+
+            return ResponseController::respond($request, 200, 'Welcome '.$request->email.'!', 'index')->withCookie(cookie('user_id', Auth::user()->id, 120));
         }
 
         return redirect()->route('login')->with(['message' => 'Invalid username or password!']);

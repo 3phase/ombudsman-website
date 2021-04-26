@@ -17,4 +17,7 @@ class Node extends Model
     public function users() {
         return $this->belongsToMany('App\\Progress', 'users_missions');
     }
+
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
 }

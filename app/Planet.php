@@ -17,4 +17,7 @@ class Planet extends Model
     public function alienCoordinates(){
         return $this->hasMany('App\\AlienCoordinates');
     }
+
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
 }

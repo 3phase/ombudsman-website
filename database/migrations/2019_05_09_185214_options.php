@@ -30,6 +30,6 @@ class Options extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('options');
     }
 }

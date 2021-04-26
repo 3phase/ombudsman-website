@@ -19,6 +19,9 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        
+        //custom middleware for production (redirect to https)
+        \App\Http\Middleware\HttpsMiddleware::class,
     ];
 
     /**
@@ -67,7 +70,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'basicAuth' => \App\Http\Middleware\BasicAuth::class,
-        'json.response' => \App\Http\Middleware\ForceJsonResponse::class
+        'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
+        'cors' => \App\Http\Middleware\Cors::class
     ];
 
     /**

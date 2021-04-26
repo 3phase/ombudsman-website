@@ -16,7 +16,6 @@ class AliensMissions extends Migration
             $table->bigInteger('alien_id');
             $table->bigInteger('node_id');
             $table->bigInteger('unlocking_popularity');
-            $table->timestamps();
         });
     }
 
@@ -27,6 +26,6 @@ class AliensMissions extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('aliens_missions');
     }
 }
