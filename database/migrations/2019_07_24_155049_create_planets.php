@@ -16,9 +16,10 @@ class CreatePlanets extends Migration
         Schema::create('planets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 45);
+            $table->string('image_filename');
+            $table->string('background_image');
             $table->integer('level');
-            $table->integer('reachable_population');
-            $table->timestamps();
+            $table->integer('unlocking_popularity');
         });
     }
 

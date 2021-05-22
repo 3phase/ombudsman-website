@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ResponseController as ResponseController;
 
 class UsersController extends Controller
 {
@@ -24,31 +26,30 @@ class UsersController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function login(Request $request){
-        $user = \App\User::where('email', $request->input('email'))->first();
-        $id = $request->session()->get('id', 'No such key my friend!');
-        Log::info("Found id is: ".$id);
+        $params = $request->only('email', 'password');
+        if(Auth::attempt($params)){
+            $tokenObject = app('App\Http\Controllers\AuthController')->login($request);
 
-        if ($user != null) {
-            if (Hash::check($request->input('password'), $user->password)){                
-                // $session = new \Session();
-                // $session->save();
-                // \Log::info("Created id is: ".$session->getId());
-                // session(["sessionId" => $session->getId()]);
-                
-                Log::info("Session id is: ".session("sessionId"));
+            \Cookie::queue(\Cookie::make('auth_token', json_decode($tokenObject->getContent())->token, 1800, null, null, false, false));            
+            \Cookie::queue(\Cookie::make('user_id', Auth::user()->id, 120, null, null, false, false));
+            \Cookie::queue(\Cookie::make('session_id', session()->getId(), 120, null, null, false, false));
 
-                \Cookie::queue('session_id', $request->session()->getId());
-                \Cookie::queue('user_email', $user->email);
-                // \Log::info("Created id is: ".\Cookie->get('user_email'));
-
-                return view('welcome', ['name'=> $user->email]);
-            }
+            return ResponseController::respond($request, 200, 'Welcome '.$request->email.'!', 'index')->withCookie(cookie('user_id', Auth::user()->id, 120));
         }
-        return view('login', ['message' => 'Invalid username or password']);
+
+        return redirect()->route('login')->with(['message' => 'Invalid username or password!']);
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+        \Cookie::queue(\Cookie::forget('session_id'));
+        return redirect()->route('index')->with(['message' => 'Singed out successfully!']);
     }
 
     public function register(Request $request){
         $user = new \App\User;
+        $player = new \App\Player;
+
         $isValid = $request->validate([
             'email' => 'required|unique:users|min:3',
             'name' => 'nullable|min:3',
@@ -60,6 +61,11 @@ class UsersController extends Controller
         $user->password = Hash::make($request->input('password'), ['rounds' => 12]);
 
         $user->save();
+
+        $player->nickname = $user->name;
+        $player->user_id = $user->id;
+
+        $player->save();
 
         return redirect()->route('login')->with(['message' => 'Register successful! :)']);
     }

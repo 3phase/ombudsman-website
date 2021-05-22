@@ -11,10 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('Set @@auto_increment_increment = 10');
+        $this->call(AliensTableSeeder::class);
         $this->call(NodesTable::class);
         $this->call(OptionsTable::class);
-        $this->call(AliensTableSeeder::class);
         $this->call(PlanetsTableSeeder::class);
         $this->call(AliensMissionsTable::class);
+        $this->call(AlienCoordinatesTableSeeder::class);
     }
 }

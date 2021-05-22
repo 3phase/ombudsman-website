@@ -13,4 +13,11 @@ class Planet extends Model
     public function progress(){
         return $this->hasMany('App\\Progress');
     }
+
+    public function alienCoordinates(){
+        return $this->hasMany('App\\AlienCoordinates');
+    }
+
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
 }

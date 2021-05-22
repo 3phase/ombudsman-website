@@ -14,13 +14,25 @@ class AliensMissionsTable extends Seeder
         DB::table('aliens_missions')->insert([
             'alien_id' => 1,
             'node_id' => 1,
-            'reachable_popularity' => 0
+            'unlocking_popularity' => 0
         ]);
 
         Db::table('aliens_missions')->insert([
             'alien_id' => 11,
             'node_id' => 41,
-            'reachable_popularity' => 1
+            'unlocking_popularity' => 1
+        ]);
+
+        Db::table('aliens_missions')->insert([
+            'alien_id' => 31,
+            'node_id' => 191,
+            'unlocking_popularity' => 1
+        ]);
+
+        Db::table('aliens_missions')->insert([
+            'alien_id' => 11,
+            'node_id' => 271,
+            'unlocking_popularity' => 1
         ]);
     }
 }

@@ -15,7 +15,7 @@ class CreateProgressTable extends Migration
     {
         Schema::create('progress', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->integer('player_id');
             $table->integer('trust');
             $table->integer('popularity');
             $table->integer('jokers');
@@ -23,7 +23,6 @@ class CreateProgressTable extends Migration
             $table->integer('days');
             $table->integer('points');
             $table->integer('planet_id');
-            $table->timestamps();
         });
     }
 

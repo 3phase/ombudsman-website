@@ -13,20 +13,26 @@ class PlanetsTableSeeder extends Seeder
     {
         DB::table('planets')->insert([
             'name' => 'Root35E2',
+            'image_filename' => 'planet1',
+            'background_image' => 'Root35E2',
             'level' => 1,
-            'reachable_population' => 0 
+            'unlocking_popularity' => 0,
         ]);
         
         DB::table('planets')->insert([
             'name' => 'El',
+            'image_filename' => 'planet2',
+            'background_image' => 'El',
             'level' => 3,
-            'reachable_population' => 100 
+            'unlocking_popularity' => 100 
         ]);
 
         DB::table('planets')->insert([
             'name' => 'Esteban',
+            'image_filename' => 'planet3',
+            'background_image' => 'Esteban',
             'level' => 2,
-            'reachable_population' => 5 
+            'unlocking_popularity' => 5 
         ]);
     }
 }

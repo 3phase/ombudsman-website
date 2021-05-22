@@ -15,8 +15,7 @@ class AliensMissions extends Migration
         Schema::create('aliens_missions', function (Blueprint $table) {
             $table->bigInteger('alien_id');
             $table->bigInteger('node_id');
-            $table->bigInteger('reachable_popularity');
-            $table->timestamps();
+            $table->bigInteger('unlocking_popularity');
         });
     }
 
@@ -27,6 +26,6 @@ class AliensMissions extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('aliens_missions');
     }
 }
