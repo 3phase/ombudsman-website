@@ -125,11 +125,11 @@ class AuthController extends Controller
             }
 
             $composite_object = [
-                'node' => ["id" => $child->id, "dialog" => $child->dialog,
-                "option_dialog" => $option_dialog, 'speaker' => $child->speaker,
-                "pivot" => $child->pivot,
-                'gains' => \App\Option::select('trust', 'energy')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first(),
-                'unlocking_trust' => \App\Node::select('unlocking_trust')->where(['id' => $child->id])->first()->unlocking_trust]
+                // 'node' => ["id" => $child->id, "dialog" => $child->dialog,
+                // "option_dialog" => $option_dialog, 'speaker' => $child->speaker,
+                // "pivot" => $child->pivot,
+                // 'gains' => \App\Option::select('trust', 'energy')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first(),
+                // 'unlocking_trust' => \App\Node::select('unlocking_trust')->where(['id' => $child->id])->first()->unlocking_trust]
             ];
 
             array_push($options, $composite_object);
