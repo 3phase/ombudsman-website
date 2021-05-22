@@ -116,10 +116,9 @@ class AuthController extends Controller
 
             $composite_object = [
                 'node' => ["id" => $child->id, "dialog" => $child->dialog,
-                    ['start_id' => $mission_node->id])->first()->dialog, "option_dialog" => \App\Option::select('dialog')->where(['next_id' => $child->id], 'speaker' => $child->speaker,
+                "option_dialog" => \App\Option::select('dialog')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first()->dialog, 'speaker' => $child->speaker,
                 "pivot" => $child->pivot,
-                'gains' => \App\Option::select('trust', 'energy')->where(['next_id' => $child->id],
-                    ['start_id' => $mission_node->id])->first(),
+                'gains' => \App\Option::select('trust', 'energy')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first(),
                 'unlocking_trust' => \App\Node::select('unlocking_trust')->where(['id' => $child->id])->first()->unlocking_trust]
             ];
 
