@@ -15,7 +15,7 @@ class Node extends Model
     }
 
     public function edges(){
-        return $this->hasMany('App\\Option', 'options', 'start_id');
+        return $this->hasMany('App\\Option', 'start_id');
     }
 
     public function users() {
