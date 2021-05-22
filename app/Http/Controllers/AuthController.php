@@ -127,7 +127,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'current_node' => [$mission_node->id, $mission_node->dialog, $mission_node->speaker, $mission_node->unlocking_trust],
+            'current_node' => ['id' => $mission_node->id, 'dialog' => $mission_node->dialog, 'speaker' => $mission_node->speaker, 'unlocking_trust' => $mission_node->unlocking_trust],
             'options' => $options
         ]);
     }
