@@ -115,8 +115,8 @@ class AuthController extends Controller
             unset($child->updated_at);
 
             $composite_object = [
-                'node' => ["id" => $child->id, "dialog" => \App\Option::select('dialog')->where(['next_id' => $child->id],
-                    ['start_id' => $mission_node->id])->first()->dialog, "option_dialog" => $child->dialog, 'speaker' => $child->speaker,
+                'node' => ["id" => $child->id, "dialog" => $child->dialog,
+                    ['start_id' => $mission_node->id])->first()->dialog, "option_dialog" => \App\Option::select('dialog')->where(['next_id' => $child->id], 'speaker' => $child->speaker,
                 "pivot" => $child->pivot,
                 'gains' => \App\Option::select('trust', 'energy')->where(['next_id' => $child->id],
                     ['start_id' => $mission_node->id])->first(),
