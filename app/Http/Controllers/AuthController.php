@@ -112,7 +112,7 @@ class AuthController extends Controller
         $options = [];
 
         foreach ($edges as $edge) {
-            $child = \App\Node::select()->where(['id' => $edge->start_id])->first();
+            $child = \App\Node::select()->where(['id' => $edge->next_id])->first();
 
             unset($child->created_at);
             unset($child->updated_at);
