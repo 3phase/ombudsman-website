@@ -99,6 +99,7 @@ class AuthController extends Controller
 
         //no unlocking days in each individual node, but rather when getting all the missions from an alien
         //unlocking_trust -> in mission node, not outside of it!
+        //pivot? - should it stay or should it go?
 
         $mission_node = \App\Node::find($node_id);
         unset($mission_node->created_at);
@@ -113,7 +114,7 @@ class AuthController extends Controller
             unset($child->updated_at);
 
             $composite_object = [
-                'node' => ["id" => $child->id, "dialog" => $child->dialog, 'speaker' => $child->speaker, "pivot" => $child->pivot, 'gains' => \App\Option::select('trust', 'dialog')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
+                'node' => ["id" => $child->id, "dialog" => \App\Option::select('dialog')->where(['next_id' => $child->id], ['start_id' => $mission_node->id]), "option_dialog" => $child->dialog, 'speaker' => $child->speaker, "pivot" => $child->pivot, 'gains' => \App\Option::select('trust', 'enrgy')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
                 ->first(), 'unlocking_trust' => \App\Node::select('unlocking_trust')->where(['id' => $child->id])->first()->unlocking_trust]
             ];
 
