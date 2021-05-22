@@ -99,6 +99,7 @@ class AuthController extends Controller
 
         //no unlocking days in each individual node, but rather when getting all the missions from an alien
         //unlocking_trust -> in mission node, not outside of it!
+
         //pivot? - should it stay or should it go?
 
         $mission_node = \App\Node::find($node_id);
@@ -115,18 +116,18 @@ class AuthController extends Controller
 
             $composite_object = [
                 'node' => ["id" => $child->id, "dialog" => \App\Option::select('dialog')->where(['next_id' => $child->id],
-                ['start_id' => $mission_node->id]), "option_dialog" => $child->dialog, 'speaker' => $child->speaker,
+                    ['start_id' => $mission_node->id])->first()->dialog, "option_dialog" => $child->dialog, 'speaker' => $child->speaker,
                 "pivot" => $child->pivot,
                 'gains' => \App\Option::select('trust', 'energy')->where(['next_id' => $child->id],
-                ['start_id' => $mission_node->id])
-                ->first(), 'unlocking_trust' => \App\Node::select('unlocking_trust')->where(['id' => $child->id])->first()->unlocking_trust]
+                    ['start_id' => $mission_node->id])->first(),
+                'unlocking_trust' => \App\Node::select('unlocking_trust')->where(['id' => $child->id])->first()->unlocking_trust]
             ];
 
             array_push($options, $composite_object);
         }
 
         return response()->json([
-            'current_node' => $mission_node,
+            'current_node' => [$mission_node->id, $mission_node->dialog, $mission_node->speaker, $mission_node->unlocking_trust],
             'options' => $options
         ]);
     }
