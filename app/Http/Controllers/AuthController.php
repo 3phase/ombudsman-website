@@ -96,6 +96,10 @@ class AuthController extends Controller
     }
 
     public function getMissionNode($node_id){
+
+        //no unlocking days in each individual node, but rather when getting all the missions from an alien
+        //unlocking_trust -> in mission node, not outside of it!
+
         $mission_node = \App\Node::find($node_id);
         unset($mission_node->created_at);
         unset($mission_node->updated_at);
@@ -110,8 +114,7 @@ class AuthController extends Controller
 
             $composite_object = [
                 'node' => ["id" => $child->id, "dialog" => $child->dialog, 'speaker' => $child->speaker, "pivot" => $child->pivot, 'gains' => \App\Option::select('trust', 'dialog')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
-                ->first()],
-                'unlocking_trust' => \App\Node::select('unlocking_trust')->where(['id' => $child->id])->first()->unlocking_trust
+                ->first(), 'unlocking_trust' => \App\Node::select('unlocking_trust')->where(['id' => $child->id])->first()->unlocking_trust]
             ];
 
             array_push($options, $composite_object);
