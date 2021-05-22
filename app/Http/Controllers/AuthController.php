@@ -110,19 +110,22 @@ class AuthController extends Controller
 
         $options = [];
 
+        $index = 0;
+
         foreach ($children as $child) {
             unset($child->created_at);
             unset($child->updated_at);
 
             $composite_object = [
                 'node' => ["id" => $child->id, "dialog" => $child->dialog,
-                "option_dialog" => \App\Option::select('dialog')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first()->dialog, 'speaker' => $child->speaker,
+                "option_dialog" => \App\Option::select('dialog')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->get()[$index]->dialog, 'speaker' => $child->speaker,
                 "pivot" => $child->pivot,
                 'gains' => \App\Option::select('trust', 'energy')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first(),
                 'unlocking_trust' => \App\Node::select('unlocking_trust')->where(['id' => $child->id])->first()->unlocking_trust]
             ];
 
             array_push($options, $composite_object);
+            $index += 1;
         }
 
         return response()->json([
