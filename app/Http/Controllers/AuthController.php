@@ -13,7 +13,7 @@ class AuthController extends Controller
                 'message' => 'Unauthenticated'
             ], 403);
         }
-        
+
         $token = $user->createToken('utoken')->accessToken;
 
         return response([
@@ -40,7 +40,7 @@ class AuthController extends Controller
                 'points' => $progress_object->points,
                 'planet_id' => $progress_object->planet_id,
                 'player_id' => $user->id]);
-                
+
             $progress->save();
         }
         else{
@@ -99,7 +99,7 @@ class AuthController extends Controller
         $mission_node = \App\Node::find($node_id);
         unset($mission_node->created_at);
         unset($mission_node->updated_at);
-    
+
         $children = $mission_node->options()->get();
 
         $options = [];
@@ -109,7 +109,7 @@ class AuthController extends Controller
             unset($child->updated_at);
 
             $composite_object = [
-                'node' => ["id" => $child->id, "dialog" => $child->dialog, 'speaker' => $child->speaker, "pivot" => $child->pivot, 'gains' => \App\Option::select('popularity', 'trust', 'energy', 'days')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
+                'node' => ["id" => $child->id, "dialog" => $child->dialog, 'speaker' => $child->speaker, "pivot" => $child->pivot, 'gains' => \App\Option::select('trust', 'dialog')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])
                 ->first()],
                 'unlocking_trust' => \App\Option::select('unlocking_trust')->where(['next_id' => $child->id], ['start_id' => $mission_node->id])->first()->unlocking_trust
             ];
@@ -125,7 +125,7 @@ class AuthController extends Controller
 
     public function getMissionNodes(Request $request){
         $nodeIds = $request->input('node_ids');
-       
+
         $mission_nodes = \App\Node::whereIn('id', array_map('intval', explode(',', $nodeIds)))->get();
 
         return $mission_nodes;
