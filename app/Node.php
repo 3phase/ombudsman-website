@@ -13,7 +13,11 @@ class Node extends Model
     public function options(){
         return $this->belongsToMany('App\\Node', 'options', 'start_id', 'next_id');
     }
-    
+
+    public function edges(){
+        return $this->belongsToMany('App\\Option', 'options', 'start_id');
+    }
+
     public function users() {
         return $this->belongsToMany('App\\Progress', 'users_missions');
     }
