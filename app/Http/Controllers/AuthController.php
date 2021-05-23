@@ -60,7 +60,7 @@ class AuthController extends Controller
     }
 
     public function getAlienMissions($alien_id){
-        return response()->json(\App\Alien::find($id)->missions());
+        return response()->json(\App\Alien::find($alien_id)->missions());
     }
 
     public function getPlanet($id){
