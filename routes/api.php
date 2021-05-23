@@ -23,5 +23,6 @@ Route::middleware('web', 'json.response')->group(function() {
     Route::get('/alien/{alien_id}/mission/{alien_mission_num}', 'AuthController@getMission')->middleware('auth:api');
     Route::get('mission_node/{node_id}', 'AuthController@getMissionNode')->middleware('auth:api');
     Route::get('mission_nodes/', 'AuthController@getMissionNodes')->middleware('auth:api');
+    Route::get('alien/{alien_id}/missions', 'AuthController@getAlienMissions')->middleware('auth:api');
     Route::post('/save_progress', 'AuthController@saveProgress')->name('auth:api');
 });

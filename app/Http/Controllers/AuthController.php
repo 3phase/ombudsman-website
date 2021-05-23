@@ -59,6 +59,10 @@ class AuthController extends Controller
         return response()->json(\App\Alien::find($id));
     }
 
+    public function getAlienMissions($alien_id){
+        return $this->getAlien($alien_id)->missions();
+    }
+
     public function getPlanet($id){
         $planet = \App\Planet::find($id);
         $aliens = \App\Alien::where(['planet_id' => $id])->select('id', 'name', 'picture_path')->get();
